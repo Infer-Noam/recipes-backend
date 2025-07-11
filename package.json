@@ -7,25 +7,27 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "cross-env NODE_ENV=PROD node dist/src/index.js",
-    "dev": "cross-env NODE_ENV=DEV nodemon --watch src --ext ts --exec ts-node src/index.ts",
+    "start": "cross-env NODE_ENV=prod node dist/src/index.js",
+    "dev": "cross-env NODE_ENV=dev nodemon --watch src --ext ts --exec ts-node src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "create_migration": "typeorm migration:create ./src/database/migrations/"
+    "migration:run": "typeorm-ts-node-commonjs migration:run -d src/database/data-source.ts"
   },
   "dependencies": {
-    "@types/cors": "^2.8.19",
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "date-fns": "^4.1.0",
     "dotenv": "^17.2.0",
     "express": "^5.1.0",
     "pg": "^8.16.3",
+    "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.25",
     "typescript": "^5.8.3",
     "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/express": "^5.0.3",
+    "@types/node": "^24.0.13",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.3"
   }

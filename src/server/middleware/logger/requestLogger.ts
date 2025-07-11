@@ -1,4 +1,3 @@
-//import { createLogger } from "./index";
 import { createLogger } from "./index";
 import type { RequestHandler } from "express";
 
