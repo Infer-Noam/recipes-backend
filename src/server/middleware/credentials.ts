@@ -1,4 +1,4 @@
-import allowedOrigins from "../config.ts/allowedOrigins";
+import allowedOrigins from "../config/allowedOrigins";
 import type { RequestHandler } from "express";
 
 const credentials: RequestHandler = (req, res, next) => {

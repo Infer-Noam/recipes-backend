@@ -1,9 +1,10 @@
 import express from "express";
 import credentials from "./middleware/credentials";
-import corsOptions from "./config.ts/corsOptions";
+import corsOptions from "./config/corsOptions";
 import cors from "cors";
 import errorLogger from "./middleware/logger/errorLogger";
 import requestLogger from "./middleware/logger/requestLogger";
+import apiRouter from "./routes/api/index";
 
 const app = express();
 
@@ -20,11 +21,10 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 // built in middleware to handle urlencoded form data
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 
-// FUTURE ROUTERS
-//
-//
+// Routers
+app.use("/api", apiRouter);
 
 // the final route
 app.all("/{*catchall}", (req, res) => {

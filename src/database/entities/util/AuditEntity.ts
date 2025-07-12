@@ -3,10 +3,11 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   DeleteDateColumn,
+  BaseEntity
 } from "typeorm";
 
 @Entity()
-export class BaseEntity {
+export class AuditEntity extends BaseEntity{
   @PrimaryGeneratedColumn("uuid")
   uuid: string;
 

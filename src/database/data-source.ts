@@ -1,7 +1,8 @@
 import "dotenv/config"; // Loads environment variables
 import { DataSource } from "typeorm";
-import entities from "./entity/index";
-import migrations from "./migration/index";
+import entities from "./entities/index";
+
+const migrations = ["src/database/migrations/**/*.ts"];
 
 const databasePort =
   process.env.DB_PORT ??

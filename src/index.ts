@@ -19,6 +19,7 @@ const main = async () => {
 
   AppDataSource.initialize()
     .then(() => {
+      
       console.log(`Data Source running on port ${databasePort}`);
 
       app.listen(serverPort, () =>

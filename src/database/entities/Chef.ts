@@ -1,10 +1,10 @@
 import { Entity, OneToMany, Column } from "typeorm";
-import { BaseEntity } from "./util/BaseEntity";
+import { AuditEntity } from "./util/AuditEntity";
 import { Recipe } from "./Recipe";
 
 // Add relations !!!
 @Entity("chef")
-export class Chef extends BaseEntity {
+export class Chef extends AuditEntity {
   @Column({ type: "varchar", length: 20 })
   first_name: string;
 
