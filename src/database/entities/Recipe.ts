@@ -3,16 +3,13 @@ import { AuditEntity } from "./util/AuditEntity";
 import { Chef } from "./Chef";
 import { RecipeIngredient } from "./RecipeIngredient";
 
-@Entity("recipe")
+@Entity()
 export class Recipe extends AuditEntity {
   @Column({ type: "varchar", length: 20 })
   name: string;
 
   @Column({ type: "text", array: true })
   steps: string[];
-
-  @Column({ type: "uuid" })
-  chef_uuid: string;
 
   @ManyToOne(() => Chef, (Chef) => Chef.recipes, {
     onDelete: "CASCADE",

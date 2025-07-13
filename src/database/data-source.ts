@@ -1,8 +1,13 @@
 import "dotenv/config"; // Loads environment variables
 import { DataSource } from "typeorm";
 import entities from "./entities/index";
+import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
-const migrations = ["src/database/migrations/**/*.ts"];
+// "src/database/migrations/**/*"
+
+const migrations = ["./migrations/*"];
+
+console.log(migrations);
 
 const databasePort =
   process.env.DB_PORT ??
@@ -17,8 +22,9 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: entities,
-  migrations: migrations,
+  entities,
+  migrations,
   synchronize: false,
   logging: false,
+  namingStrategy: new SnakeNamingStrategy(),
 });

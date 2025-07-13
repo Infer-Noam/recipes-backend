@@ -1,33 +1,39 @@
 import { RequestHandler } from "express";
 import { Recipe } from "../../database/entities/Recipe";
 import { RecipeIngredient } from "../../database/entities/RecipeIngredient";
-import { CreateRecipeDTO } from "../dtos/CreateRecipeDTO";
+import { AppDataSource } from "../../database/data-source";
 
 // The lambda saves the recipe first and than uses it's uuid to save the recipe ingredients
 const createRecipe: RequestHandler = async (req, res, _) => {
-  const dto = req.body as CreateRecipeDTO;
-  const recipe_ingredients = [...dto.ingredients];
-  // Takes all fields EXCEPT ingredients
-  const recipe = Recipe.create({
-    name: dto.name,
-    chef_uuid: dto.chef_uuid,
-    steps: dto.steps,
-  });
-  await recipe.save();
+  try {
+    await AppDataSource.transaction(async (t) => {
+      const { name, steps, chefUuid, ingredients } = req.body;
+      const recipeIngredients = [...ingredients];
 
-  /* Maps the recipe ingredients inside the req body into
-  promises of recipe ingredients entity save attempts */
-  await Promise.all(
-    recipe_ingredients.map(async (recipe_ingredient) => {
-      const r = RecipeIngredient.create({
-        ...recipe_ingredient,
-        recipe_uuid: recipe.uuid,
+      // Takes all fields EXCEPT ingredients
+      const recipe = t.create(Recipe, {
+        name,
+        chefUuid,
+        steps,
       });
-      await r.save();
-    })
-  );
+      await t.save(recipe);
 
-  return res.status(201).json(recipe);
+      /* Maps the recipe ingredients inside the req body into
+      promises of recipe ingredients entity save attempts */
+      await Promise.all(
+        recipeIngredients.map(async (recipeIngredient) => {
+          const ri = t.create(RecipeIngredient, {
+            ...recipeIngredient,
+            recipeUuid: recipe.uuid,
+          });
+          await t.save(ri);
+        })
+      );
+    });
+    return res.sendStatus(201);
+  } catch (e) {
+    return res.sendStatus(500);
+  }
 };
 
 export default { createRecipe };
