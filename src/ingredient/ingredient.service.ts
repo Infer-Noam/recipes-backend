@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { Ingredient } from "../entities/ingredient.entity";
+import { Ingredient } from "../ingredient/ingredient.entity";
 
 const createIngredient: RequestHandler = async (req, res, _) => {
   const { name } = req.body;

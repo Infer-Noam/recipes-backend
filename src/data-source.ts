@@ -1,6 +1,9 @@
 import "dotenv/config"; // Loads environment variables
 import { DataSource } from "typeorm";
-import entities from "./entities/index";
+import { Recipe } from "./recipe/recipe.entity";
+import { Chef } from "./chef/chef.entity";
+import { Ingredient } from "./ingredient/ingredient.entity";
+import { RecipeIngredient } from "./recipe-ingredient.entity";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
 const migrations = process.env.NODE_ENV !== "prod" ? ["migrations/**/*"] : [];
@@ -18,7 +21,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities,
+  entities: [Recipe, Chef, Ingredient, RecipeIngredient],
   migrations,
   synchronize: false,
   logging: false,

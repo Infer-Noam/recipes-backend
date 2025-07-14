@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
-import { Recipe } from "../entities/recipe.entity";
-import { RecipeIngredient } from "../entities/recipe-ingredient.entity";
+import { Recipe } from "./recipe.entity";
+import { RecipeIngredient } from "../recipe-ingredient.entity";
 import { AppDataSource } from "../data-source";
 
 // The lambda saves the recipe first and than uses it's uuid to save the recipe ingredients

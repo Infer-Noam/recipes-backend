@@ -4,7 +4,7 @@ import corsOptions from "./config/corsOptions";
 import cors from "cors";
 import errorLogger from "./middleware/logger/error-logger.middleware";
 import requestLogger from "./middleware/logger/request-logger.middleware";
-import apiRouter from "./routes/api/index";
+import apiRouter from "./api.route";
 
 const app = express();
 

@@ -1,5 +1,5 @@
 import { RequestHandler } from "express";
-import { Chef } from "../entities/chef.entity";
+import { Chef } from "../chef/chef.entity";
 
 const createChef: RequestHandler = async (req, res, _) => {
   const { firstName, lastName, phone, email } = req.body;
