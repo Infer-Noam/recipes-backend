@@ -8,30 +8,30 @@ import apiRouter from "./api.route";
 
 const app = express();
 
-// request logger needs to be first so it will log all requests
+// Request logger needs to be first so it will log all requests
 app.use(requestLogger);
 
-// enable CORS credentials for allowed origins
+// Enable CORS credentials for allowed origins
 app.use(credentials);
 
-// built in middleware for resource sharing
+// Built in middleware for resource sharing
 app.use(cors(corsOptions));
 
-// built in middleware for json
+// Built in middleware for json
 app.use(express.json());
 
-// built in middleware to handle urlencoded form data
+// Built in middleware to handle urlencoded form data
 app.use(express.urlencoded({ extended: true }));
 
 // Routers
 app.use("/api", apiRouter);
 
-// the final route
+// The final route
 app.all("/{*catchall}", (req, res) => {
   res.sendStatus(404);
 });
 
-// error logger should be after all middleware and routers
+// Error logger should be after all middleware and routers
 app.use(errorLogger);
 
 export default app;
