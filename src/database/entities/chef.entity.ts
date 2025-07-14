@@ -1,6 +1,6 @@
 import { Entity, OneToMany, Column } from "typeorm";
-import { AuditEntity } from "./util/AuditEntity";
-import { Recipe } from "./Recipe";
+import { AuditEntity } from "./util/Audit.entity";
+import { Recipe } from "./recipe.entity";
 
 @Entity()
 export class Chef extends AuditEntity {

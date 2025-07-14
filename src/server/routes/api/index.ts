@@ -1,11 +1,11 @@
-import recipesRouter from "./recipes";
-import chefsRouter from "./chefs";
-import ingredientsRouter from "./ingredients";
+import recipesRouter from "./recipes.route";
+import chefsRouter from "./chef.route";
+import ingredientsRouter from "./ingredient.route";
 import { Router } from "express";
 
 const router = Router()
-  .use("/recipes", recipesRouter)
-  .use("/chefs", chefsRouter)
-  .use("/ingredients", ingredientsRouter);
+  .use("/recipe", recipesRouter)
+  .use("/chef", chefsRouter)
+  .use("/ingredient", ingredientsRouter);
 
 export default router;
