@@ -1,7 +1,7 @@
 import { Entity, Column, ManyToOne, JoinColumn, Unique } from "typeorm";
-import { AuditEntity } from "./audit.entity";
-import { Recipe } from "./recipe/recipe.entity";
-import { Ingredient } from "./ingredient/ingredient.entity";
+import { AuditEntity } from "../../audit.entity";
+import { Recipe } from "../../recipe/recipe.entity";
+import { Ingredient } from "../../ingredient/ingredient.entity";
 import { MeasurementUnits } from "@shared/enums/measurement-units.enum";
 
 @Entity()

@@ -3,7 +3,7 @@ import { DataSource } from "typeorm";
 import { Recipe } from "./recipe/recipe.entity";
 import { Chef } from "./chef/chef.entity";
 import { Ingredient } from "./ingredient/ingredient.entity";
-import { RecipeIngredient } from "./recipe-ingredient.entity";
+import { RecipeIngredient } from "./recipe/recipe-ingredient/recipeIngredient.entity";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
 const migrations = process.env.NODE_ENV !== "prod" ? ["migrations/**/*"] : [];

@@ -8,7 +8,7 @@ import {
 } from "typeorm";
 import { AuditEntity } from "../audit.entity";
 import { Chef } from "../chef/chef.entity";
-import { RecipeIngredient } from "../recipe-ingredient.entity";
+import { RecipeIngredient } from "../recipe/recipe-ingredient/recipeIngredient.entity";
 
 @Entity()
 @Unique("UQ_chef_recipe", ["chefUuid", "name"]) // Ensures chef cannot 2 identical recipes
