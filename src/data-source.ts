@@ -3,7 +3,7 @@ import { DataSource } from "typeorm";
 import entities from "./entities/index";
 import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 
-const migrations = ["migrations/**/*"];
+const migrations = process.env.NODE_ENV !== "prod" ? ["migrations/**/*"] : [];
 
 const databasePort =
   process.env.DB_PORT ??

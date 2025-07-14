@@ -1,6 +1,6 @@
 import "dotenv/config"; // Loads environment variables
-import app from "./server/index";
-import { AppDataSource } from "./database/data-source"; //
+import app from "./app";
+import { AppDataSource } from "./data-source"; //
 
 const serverPort =
   process.env.SERVER_PORT ??
@@ -19,7 +19,6 @@ const main = async () => {
 
   AppDataSource.initialize()
     .then(() => {
-      
       console.log(`Data Source running on port ${databasePort}`);
 
       app.listen(serverPort, () =>

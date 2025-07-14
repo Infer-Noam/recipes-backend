@@ -2,7 +2,7 @@ import { Entity, Column, ManyToOne, JoinColumn, Unique } from "typeorm";
 import { AuditEntity } from "./util/Audit.entity";
 import { Recipe } from "./recipe.entity";
 import { Ingredient } from "./ingredient.entity";
-import { MeasurementUnits } from "../../shared/enums/measurement-units.enum";
+import { MeasurementUnits } from "../shared/enums/measurement-units.enum";
 
 @Entity()
 @Unique("UQ_recipe_ingredient", ["recipeUuid", "ingredientUuid"])
