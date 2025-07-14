@@ -7,6 +7,7 @@ import requestLogger from "./request-logger.middleware";
 
 const fsPromises = fs.promises;
 
+// A builder function for a logger
 const createLogger = async (message: string, logName: string) => {
   const dateTime = `${format(new Date(), "yyyyMMdd\tHH:mm:ss")}`;
   const logItem = `${dateTime}\t${uuid()}\t${message}\n`;
