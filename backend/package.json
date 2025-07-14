@@ -8,7 +8,7 @@
   "scripts": {
     "build": "tsc",
     "start": "cross-env NODE_ENV=prod node dist/src/index.js",
-    "dev": "cross-env NODE_ENV=dev nodemon --watch src --ext ts --exec ts-node src/index.ts",
+    "dev": "cross-env NODE_ENV=dev nodemon --watch src --ext ts --exec ts-node -r tsconfig-paths/register src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "migration:run": "typeorm-ts-node-commonjs migration:run -d src/data-source.ts"
   },
@@ -34,6 +34,7 @@
     "@types/express": "^5.0.3",
     "@types/node": "^24.0.13",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "tsx": "^4.20.3"
   }
 }
