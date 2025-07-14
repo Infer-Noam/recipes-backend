@@ -1,8 +1,8 @@
-export type IngredientReq = {
+export type CreateIngredientReq = {
   name: string;
 };
 
-export type IngredientRes = {
+export type CreateIngredientRes = {
   name: string,
   uuid: string,
   deleteDate: Date,

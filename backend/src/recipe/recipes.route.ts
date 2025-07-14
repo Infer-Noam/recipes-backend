@@ -1,12 +1,12 @@
 import { Router, Request, Response } from "express";
 import service from "./recipe.service";
-import { RecipeCreateReq } from "@shared/types/recipe.type";
+import { CreateRecipeReq } from "@shared/types/recipe.type";
 
 const router = Router();
 
 router.post(
   "/",
-  async (req: Request<{}, {}, RecipeCreateReq>, res: Response) => {
+  async (req: Request<{}, {}, CreateRecipeReq>, res: Response) => {
     const { name, steps, chefUuid, ingredients } = req.body;
 
     const recipe = await service.createRecipe(
@@ -19,5 +19,7 @@ router.post(
     res.status(201).json(recipe);
   }
 );
+
+// router.put("/",)
 
 export default router;

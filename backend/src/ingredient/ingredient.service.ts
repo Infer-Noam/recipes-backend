@@ -1,13 +1,10 @@
-import { RequestHandler } from "express";
 import { Ingredient } from "../ingredient/ingredient.entity";
 
-const createIngredient: RequestHandler = async (req, res, _) => {
-  const { name } = req.body;
-
+const createIngredient = async (name: string) => {
   const ingredient = Ingredient.create({ name });
 
   await ingredient.save();
-  return res.status(201).json(ingredient);
+  return ingredient;
 };
 
 export default { createIngredient };

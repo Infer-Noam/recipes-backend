@@ -1,4 +1,4 @@
-export type ChefCreateReq = {
+export type CreateChefReq = {
   firstName: string;
   lastName: string;
   phone: string;
