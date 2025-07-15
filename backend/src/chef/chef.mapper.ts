@@ -1,7 +1,7 @@
 import { Chef as ChefEntity } from "../chef/chef.entity";
 import { Chef } from "@shared/types/chef.type";
 
-export function toChef(entity: ChefEntity): Chef {
+export const mappedChef: (entity: ChefEntity) => Chef = (entity) => {
   const chef: Chef = {
     uuid: entity.uuid,
     firstName: entity.firstName,
@@ -12,4 +12,4 @@ export function toChef(entity: ChefEntity): Chef {
     createDate: entity.createDate,
   };
   return chef;
-}
+};

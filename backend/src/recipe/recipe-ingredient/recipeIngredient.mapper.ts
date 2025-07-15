@@ -1,7 +1,9 @@
 import { RecipeIngredient as RecipeIngredientEntity } from "../recipe-ingredient/recipeIngredient.entity";
 import { RecipeIngredient } from "@shared/types/recipeIngredient.type";
 
-export function toRecipeIngredient(entity: RecipeIngredientEntity): RecipeIngredient {
+export const mappedRecipeIngredient: (
+  entity: RecipeIngredientEntity
+) => RecipeIngredient = (entity) => {
   const recipeIngredient: RecipeIngredient = {
     ingredient: entity.ingredient,
     measurementUnit: entity.measurementUnit,
@@ -10,4 +12,4 @@ export function toRecipeIngredient(entity: RecipeIngredientEntity): RecipeIngred
     createDate: entity.createDate,
   };
   return recipeIngredient;
-}
+};

@@ -8,7 +8,6 @@ import {
   UpdateChefReq,
   UpdateChefRes,
 } from "@shared/http-types/chef/updateChef.http-type";
-import { toChef } from "./chef.mapper";
 
 const router = Router();
 
@@ -20,14 +19,9 @@ router.post(
   ) => {
     const { firstName, lastName, phone, email } = req.body;
 
-    const chefEntity = await service.createChef(
-      firstName,
-      lastName,
-      phone,
-      email
-    );
+    const chef = await service.createChef(firstName, lastName, phone, email);
 
-    res.status(201).json({ data: toChef(chefEntity) });
+    res.status(201).json({ data: chef });
   }
 );
 
@@ -39,12 +33,16 @@ router.put(
   ) => {
     const { uuid, firstName, lastName, phone, email } = req.body;
 
-    await service.updateChef(uuid, firstName, lastName, phone, email);
+    const chef = await service.updateChef(
+      uuid,
+      firstName,
+      lastName,
+      phone,
+      email
+    );
 
-    res.sendStatus(200);
+    res.status(200).json({ data: chef });
   }
 );
-
-// router.get("/");
 
 export default router;

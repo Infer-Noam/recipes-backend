@@ -20,7 +20,6 @@ import {
   GetAllRecipesReq,
   GetAllRecipesRes,
 } from "@shared/http-types/recipe/getAllRecipes.http-type";
-import { toRecipe } from "./recipe.mapper";
 
 const router = Router();
 
@@ -87,10 +86,9 @@ router.delete(
 router.get(
   "/",
   async (_: Request<GetAllRecipesReq>, res: Response<GetAllRecipesRes>) => {
-    const recipeEntities = await service.getAllRecipes();
-    const recipes = recipeEntities.map((re) => toRecipe(re));
+    const recipes = await service.getAllRecipes();
 
-    if (recipeEntities.length === 0) {
+    if (recipes.length === 0) {
       return res.sendStatus(404);
     }
 
