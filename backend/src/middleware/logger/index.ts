@@ -12,11 +12,11 @@ const createLogger = async (message: string, logName: string) => {
   const dateTime = `${format(new Date(), "yyyyMMdd\tHH:mm:ss")}`;
   const logItem = `${dateTime}\t${uuid()}\t${message}\n`;
   try {
-    if (!fs.existsSync(path.join(__dirname, "..//..//..//..", "logs"))) {
-      await fsPromises.mkdir(path.join(__dirname, "..//..//..//..", "logs"));
+    if (!fs.existsSync(path.join(__dirname, "..//..//..", "logs"))) {
+      await fsPromises.mkdir(path.join(__dirname, "..//..//..", "logs"));
     }
     await fsPromises.appendFile(
-      path.join(__dirname, "..//..//..//..", "logs", logName),
+      path.join(__dirname, "..//..//..", "logs", logName),
       logItem
     );
   } catch (err) {

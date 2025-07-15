@@ -1,4 +1,7 @@
 import { Chef } from "../chef/chef.entity";
+import { AppDataSource } from "../data-source";
+
+const repo = AppDataSource.getRepository(Chef);
 
 const createChef = async (
   firstName: string,
@@ -6,10 +9,18 @@ const createChef = async (
   phone: string,
   email: string
 ) => {
-  const chef = Chef.create({ firstName, lastName, phone, email });
-
-  await chef.save();
+  const chef = await repo.save({ firstName, lastName, phone, email });
   return chef;
 };
 
-export default { createChef };
+const updateChef = async (
+  uuid: string,
+  firstName: string,
+  lastName: string,
+  phone: string,
+  email: string
+) => {
+  await repo.update({ uuid: uuid }, { firstName, lastName, phone, email });
+};
+
+export default { createChef, updateChef };

@@ -4,19 +4,13 @@ import {
   JoinColumn,
   Column,
   OneToMany,
-  Unique,
 } from "typeorm";
 import { AuditEntity } from "../audit.entity";
 import { Chef } from "../chef/chef.entity";
 import { RecipeIngredient } from "../recipe/recipe-ingredient/recipeIngredient.entity";
 
 @Entity()
-@Unique("UQ_chef_recipe", ["chefUuid", "name"]) // Ensures chef cannot 2 identical recipes
 export class Recipe extends AuditEntity {
-  // Kept for the unique constraint
-  @Column({ type: "uuid" })
-  chefUuid: string;
-
   @Column({ type: "varchar", length: 20 })
   name: string;
 
@@ -38,3 +32,5 @@ export class Recipe extends AuditEntity {
   )
   ingredients: RecipeIngredient[];
 }
+
+

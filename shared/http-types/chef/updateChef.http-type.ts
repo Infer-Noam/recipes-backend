@@ -1,9 +1,11 @@
-export type Chef = {
+export type UpdateChefReq = {
   uuid: string;
   firstName: string;
   lastName: string;
   phone: string;
   email: string;
-  deleteDate: Date;
-  createDate: Date;
+};
+
+export type UpdateChefRes = {
+  
 };

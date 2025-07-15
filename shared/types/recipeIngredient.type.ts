@@ -1,7 +1,10 @@
-import { MeasurementUnits } from "../enums/measurement-units.enum";
+import { MeasurementUnit } from "../enums/measurement-unit.enum";
+import { Ingredient } from "../types/ingredient.type";
 
 export type RecipeIngredient = {
-  ingredientUuid: string;
+  ingredient: Ingredient;
   amount: number;
-  measurementUnits: MeasurementUnits;
+  measurementUnit: MeasurementUnit;
+  createDate: Date,
+  deleteDate: Date
 };

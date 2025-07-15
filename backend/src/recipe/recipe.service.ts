@@ -1,8 +1,9 @@
-import { RequestHandler } from "express";
 import { Recipe } from "./recipe.entity";
 import { RecipeIngredient as RecipeIngredientEntity } from "../recipe/recipe-ingredient/recipeIngredient.entity";
 import { AppDataSource } from "../data-source";
 import { RecipeIngredient } from "@shared/types/recipeIngredient.type";
+
+const recipeRepo = AppDataSource.getRepository(Recipe);
 
 // The lambda saves the recipe first and than uses it's uuid to save the recipe ingredients
 const createRecipe = async (
@@ -12,30 +13,93 @@ const createRecipe = async (
   ingredients: RecipeIngredient[]
 ) => {
   await AppDataSource.transaction(async (t) => {
-    const recipeIngredients = [...ingredients];
-
     // Takes all fields EXCEPT ingredients
-    const recipe = t.create(Recipe, {
+    const recipe = await t.save(Recipe, {
       name,
       chefUuid,
       steps,
     });
-    await t.save(recipe);
 
     /* Maps the recipe ingredients inside the req body into
       promises of recipe ingredients entity save attempts */
     await Promise.all(
-      recipeIngredients.map(async (recipeIngredient) => {
-        const ri = t.create(RecipeIngredientEntity, {
-          ...recipeIngredient,
+      ingredients.map(async (ri) => {
+        await t.save(RecipeIngredientEntity, {
+          ...ri,
           recipeUuid: recipe.uuid,
         });
-        await t.save(ri);
       })
     );
   });
-  const recipe = await Recipe.findOne({ where: { name: name, chefUuid: chefUuid } });
+  const recipe = await recipeRepo.findOne({
+    where: { name: name, chef: { uuid: chefUuid } },
+  });
   return recipe;
 };
 
-export default { createRecipe };
+const updateRecipe = async (
+  uuid: string,
+  name: string,
+  steps: string[],
+  chefUuid: string,
+  ingredients: RecipeIngredient[]
+) => {
+  return await AppDataSource.transaction(async (t) => {
+    // Update the recipe
+    await t.save(Recipe, {
+      uuid,
+      name,
+      chefUuid,
+      steps,
+    });
+
+    await t.delete(RecipeIngredientEntity, { recipeUuid: uuid });
+
+    const newIngredients = ingredients.map((ingredient) => ({
+      ...ingredient,
+      recipeu: uuid,
+    }));
+
+    await t.insert(RecipeIngredientEntity, newIngredients);
+
+    return await t.findOne(Recipe, {
+      where: { uuid },
+      relations: ["ingredients"],
+    });
+  });
+};
+
+const deleteRecipe = async (uuid: string) => {
+  const exist = await recipeRepo.exists({
+    where: { uuid: uuid },
+  });
+  if (!exist) return false;
+  await AppDataSource.transaction(async (t) => {
+    await t.delete(RecipeIngredientEntity, { recipeUuid: uuid });
+
+    await t.delete(Recipe, { uuid });
+  });
+
+  return true;
+};
+
+const getAllRecipes = async () => {
+  const recipes = await recipeRepo.find({ relations: ["ingredients"] });
+  return recipes;
+};
+
+const getRecipeByUuid = async (uuid: string) => {
+  const recipe = await recipeRepo.findOne({
+    where: { uuid: uuid },
+    relations: ["ingredients", "chef"],
+  });
+  return recipe;
+};
+
+export default {
+  createRecipe,
+  updateRecipe,
+  deleteRecipe,
+  getAllRecipes,
+  getRecipeByUuid,
+};

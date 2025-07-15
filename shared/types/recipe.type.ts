@@ -1,20 +1,11 @@
 import { RecipeIngredient } from "./recipeIngredient.type";
+import { Chef } from "../types/chef.type";
 
-export type CreateRecipeReq = {
+export type Recipe = {
   uuid: string;
   name: string;
   steps: string[];
-  chefUuid: string;
-  ingredients: RecipeIngredient[];
-  deleteDate: Date;
-  createDate: Date;
-};
-
-export type CreateRecipeRes = {
-  uuid: string;
-  name: string;
-  steps: string[];
-  chefUuid: string;
+  chef: Chef;
   ingredients: RecipeIngredient[];
   deleteDate: Date;
   createDate: Date;

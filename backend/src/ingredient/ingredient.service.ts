@@ -1,9 +1,10 @@
 import { Ingredient } from "../ingredient/ingredient.entity";
+import { AppDataSource } from "../data-source";
+
+const repo = AppDataSource.getRepository(Ingredient);
 
 const createIngredient = async (name: string) => {
-  const ingredient = Ingredient.create({ name });
-
-  await ingredient.save();
+  const ingredient = await repo.save({ name });
   return ingredient;
 };
 
