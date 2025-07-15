@@ -11,7 +11,5 @@ export type GetAllChefReq = {
 }[];
 
 export type GetAllChefRes = {
-  data: {
-    chefs: Chef[];
-  };
+  chefs: Chef[];
 };

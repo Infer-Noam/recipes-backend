@@ -1,12 +1,8 @@
+import { Ingredient } from "../../types/ingredient.type";
 export type CreateIngredientReq = {
   name: string;
 };
 
 export type CreateIngredientRes = {
-  data: {
-    name: string;
-    uuid: string;
-    deleteDate: Date;
-    createDate: Date;
-  };
+  ingredient: Ingredient
 };

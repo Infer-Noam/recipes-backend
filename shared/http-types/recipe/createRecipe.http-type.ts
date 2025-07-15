@@ -9,5 +9,5 @@ export type CreateRecipeReq = {
 };
 
 export type CreateRecipeRes = {
-  data: Recipe
+  recipe: Recipe
 };

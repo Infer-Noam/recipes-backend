@@ -40,7 +40,7 @@ router.post(
     if (!recipe) {
       res.sendStatus(500);
     } else {
-      res.status(201).json({ data: recipe });
+      res.status(201).json({ recipe });
     }
   }
 );
@@ -64,7 +64,7 @@ router.put(
     if (!recipe) {
       res.sendStatus(500);
     } else {
-      res.status(201).json({ data: recipe });
+      res.status(201).json({ recipe });
     }
   }
 );
@@ -92,7 +92,7 @@ router.get(
       return res.sendStatus(404);
     }
 
-    return res.status(200).json({ data: recipes });
+    return res.status(200).json({ recipes });
   }
 );
 
@@ -105,11 +105,7 @@ router.get(
 
     if (!recipe) return res.sendStatus(404);
 
-    const resJson = {
-      data: recipe,
-    };
-
-    return res.status(200).json(resJson);
+    return res.status(200).json({ recipe });
   }
 );
 

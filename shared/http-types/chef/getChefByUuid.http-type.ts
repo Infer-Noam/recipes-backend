@@ -5,7 +5,5 @@ export type GetChefbyUuidReq = {
 };
 
 export type GetChefbyUuidRes = {
-  data: {
-    chef: Chef;
-  };
+  chef: Chef;
 };

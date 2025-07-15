@@ -5,5 +5,5 @@ export type GetRecipeByIdReq = {
 };
 
 export type GetRecipeByIdRes = {
-  data: Recipe;
+  recipe: Recipe;
 };

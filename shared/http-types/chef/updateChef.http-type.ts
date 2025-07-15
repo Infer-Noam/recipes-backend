@@ -1,4 +1,4 @@
-import { Chef } from "@shared/types/chef.type";
+import { Chef } from "../../types/chef.type";
 
 export type UpdateChefReq = {
   uuid: string;
@@ -9,5 +9,5 @@ export type UpdateChefReq = {
 };
 
 export type UpdateChefRes = {
-  data: Chef;
+  chef: Chef;
 };

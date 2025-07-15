@@ -1,4 +1,4 @@
-import { Chef } from "@shared/types/chef.type"
+import { Chef } from "../../types/chef.type"
 
 export type CreateChefReq = {
   firstName: string;
@@ -8,6 +8,6 @@ export type CreateChefReq = {
 };
 
 export type CreateChefRes = {
-  data: Chef
+  chef: Chef
 };
 

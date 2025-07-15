@@ -21,7 +21,7 @@ router.post(
 
     const chef = await service.createChef(firstName, lastName, phone, email);
 
-    res.status(201).json({ data: chef });
+    res.status(201).json({ chef });
   }
 );
 
@@ -41,7 +41,7 @@ router.put(
       email
     );
 
-    res.status(200).json({ data: chef });
+    res.status(200).json({ chef });
   }
 );
 

@@ -16,7 +16,7 @@ router.post(
     const name = req.body.name;
     const ingredient = await service.createIngredient(name);
 
-    res.status(201).json({ data: ingredient });
+    res.status(201).json({ ingredient });
   }
 );
 

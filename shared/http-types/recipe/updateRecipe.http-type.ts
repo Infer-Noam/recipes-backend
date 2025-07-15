@@ -10,5 +10,5 @@ export type UpdateRecipeReq = {
 };
 
 export type UpdateRecipeRes = {
-  data: Recipe;
+  recipe: Recipe;
 };
