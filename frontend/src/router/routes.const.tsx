@@ -5,6 +5,7 @@ import type { RouteProps } from "react-router-dom";
 //
 
 export const PAGES_ROUTES: RouteProps[] = [
-    {},
-    {}, {}
+    { element: <></>, path: "/home" },
+    { element: <></> , path: "/creation"}, 
+    
 ]
