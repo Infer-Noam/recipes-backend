@@ -1,4 +1,4 @@
-import { RecipeIngredient } from "./recipeIngredient.type";
+import type { RecipeIngredient } from "./recipeIngredient.type";
 
 export type CreateRecipeReq = {
   uuid: string;
