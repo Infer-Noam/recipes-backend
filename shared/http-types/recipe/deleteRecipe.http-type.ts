@@ -1,7 +1,3 @@
-export type DeleteRecipeReq = {
-  uuid: string;
-};
+import { UuidReq } from "../generic/uuidReq.https-types";
 
-export type DeleteRecipeRes = {
-  
-};
+export type DeleteRecipeReq = UuidReq;

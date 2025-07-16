@@ -4,5 +4,5 @@ export type CreateIngredientReq = {
 };
 
 export type CreateIngredientRes = {
-  ingredient: Ingredient
+  ingredient: Ingredient;
 };

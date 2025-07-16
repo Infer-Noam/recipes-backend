@@ -4,10 +4,7 @@ import {
   CreateRecipeReq,
   CreateRecipeRes,
 } from "@shared/http-types/recipe/createRecipe.http-type";
-import {
-  DeleteRecipeReq,
-  DeleteRecipeRes,
-} from "@shared/http-types/recipe/deleteRecipe.http-type";
+import { DeleteRecipeReq } from "@shared/http-types/recipe/deleteRecipe.http-type";
 import {
   UpdateRecipeReq,
   UpdateRecipeRes,
@@ -16,10 +13,7 @@ import {
   GetRecipeByIdReq,
   GetRecipeByIdRes,
 } from "@shared/http-types/recipe/getRecipeByUuid.http-type";
-import {
-  GetAllRecipesReq,
-  GetAllRecipesRes,
-} from "@shared/http-types/recipe/getAllRecipes.http-type";
+import { GetAllRecipesRes } from "@shared/http-types/recipe/getAllRecipes.http-type";
 
 const router = Router();
 
@@ -71,10 +65,7 @@ router.put(
 
 router.delete(
   "/",
-  async (
-    req: Request<null, null, DeleteRecipeReq>,
-    res: Response<DeleteRecipeRes>
-  ) => {
+  async (req: Request<null, null, DeleteRecipeReq>, res: Response) => {
     const { uuid } = req.body;
 
     const exist = await service.deleteRecipe(uuid);
@@ -83,18 +74,15 @@ router.delete(
   }
 );
 
-router.get(
-  "/",
-  async (_: Request<GetAllRecipesReq>, res: Response<GetAllRecipesRes>) => {
-    const recipes = await service.getAllRecipes();
+router.get("/", async (_: Request, res: Response<GetAllRecipesRes>) => {
+  const recipes = await service.getAllRecipes();
 
-    if (recipes.length === 0) {
-      return res.sendStatus(404);
-    }
-
-    return res.status(200).json({ recipes });
+  if (recipes.length === 0) {
+    return res.sendStatus(404);
   }
-);
+
+  return res.status(200).json({ recipes });
+});
 
 router.get(
   "/:uuid",

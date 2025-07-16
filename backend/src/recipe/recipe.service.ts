@@ -1,8 +1,8 @@
 import { Recipe } from "./recipe.entity";
+import { Chef } from "../chef/chef.entity";
 import { RecipeIngredient as RecipeIngredientEntity } from "../recipe/recipe-ingredient/recipeIngredient.entity";
 import { AppDataSource } from "../data-source";
 import { RecipeIngredient } from "@shared/types/recipeIngredient.type";
-import { mappedRecipe } from "./recipe.mapper";
 
 const recipeRepository = AppDataSource.getRepository(Recipe);
 
@@ -45,49 +45,67 @@ const updateRecipe = async (
   chefUuid: string,
   ingredients: RecipeIngredient[]
 ) => {
-  return await AppDataSource.transaction(async (t) => {
-    // Update the recipe
-    await t.update(Recipe, uuid, { name, chef: { uuid: chefUuid }, steps });
-
-    await t.delete(RecipeIngredientEntity, { recipe: { uuid } });
-
-    const newIngredients = ingredients.map((ingredient) => ({
-      ...ingredient,
-      recipe: { uuid },
-    }));
-
-    await t.insert(RecipeIngredientEntity, newIngredients);
-
-    return await t.findOne(Recipe, {
+  return await AppDataSource.transaction(async (transaction) => {
+    const recipe = await transaction.findOneOrFail(Recipe, {
       where: { uuid },
-      relations: ["ingredients"],
+      relations: { chef: true, ingredients: true },
     });
+
+    recipe.name = name;
+    recipe.steps = steps;
+
+    const chef = await transaction.findOneByOrFail(Chef, { uuid: chefUuid });
+    recipe.chef = chef;
+
+    recipe.ingredients = await Promise.all(
+      ingredients.map(async (i) => {
+        const ri = await transaction.findOneByOrFail(RecipeIngredientEntity, {
+          uuid: i.uuid,
+        });
+        ri.recipe = recipe;
+        return ri;
+      })
+    );
+
+    await transaction.save(recipe);
+
+    return recipe;
   });
 };
 
 const deleteRecipe = async (uuid: string) => {
   const exist = await recipeRepository.exists({
-    where: { uuid: uuid },
+    where: { uuid },
   });
   if (!exist) return false;
-  await AppDataSource.transaction(async (t) => {
-    await t.delete(RecipeIngredientEntity, { recipe: { uuid } });
 
-    await t.delete(Recipe, { uuid });
+  // Cascade dosent support soft delete
+  await AppDataSource.transaction(async (transaction) => {
+    await transaction.softDelete(RecipeIngredientEntity, { recipe: { uuid } });
+
+    await transaction.softDelete(Recipe, { uuid });
   });
 
   return true;
 };
 
 const getAllRecipes = async () => {
-  const recipes = await recipeRepository.find({ relations: ["ingredients"] });
-  return recipes.map((r) => mappedRecipe(r));
+  const recipes = await recipeRepository.find({
+    relations: {
+      ingredients: true,
+      chef: true,
+    },
+  });
+  return recipes;
 };
 
 const getRecipeByUuid = async (uuid: string) => {
   const recipe = await recipeRepository.findOne({
     where: { uuid },
-    relations: ["ingredients", "chef"],
+    relations: {
+      ingredients: true,
+      chef: true,
+    },
   });
   return recipe;
 };

@@ -1,10 +1,4 @@
-import {
-  Entity,
-  ManyToOne,
-  JoinColumn,
-  Column,
-  OneToMany,
-} from "typeorm";
+import { Entity, ManyToOne, JoinColumn, Column, OneToMany } from "typeorm";
 import { AuditEntity } from "../audit.entity";
 import { Chef } from "../chef/chef.entity";
 import { RecipeIngredient } from "../recipe/recipe-ingredient/recipeIngredient.entity";
@@ -18,7 +12,7 @@ export class Recipe extends AuditEntity {
   steps: string[];
 
   @ManyToOne(() => Chef, (Chef) => Chef.recipes, {
-    onDelete: "CASCADE",
+    cascade: true,
   })
   @JoinColumn({
     name: "chef_uuid",
@@ -28,9 +22,10 @@ export class Recipe extends AuditEntity {
   @OneToMany(
     () => RecipeIngredient,
     (recipeIngredient) => recipeIngredient.recipe,
-    { cascade: true }
+    {
+      cascade: ["insert", "update", "remove"],
+      orphanedRowAction: "soft-delete",
+    }
   )
   ingredients: RecipeIngredient[];
 }
-
-
