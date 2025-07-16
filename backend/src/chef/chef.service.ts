@@ -1,7 +1,5 @@
 import { Chef } from "../chef/chef.entity";
 import { AppDataSource } from "../data-source";
-import { mappedChef } from "./chef.mapper";
-
 const chefRepository = AppDataSource.getRepository(Chef);
 
 const createChef = async (
@@ -11,7 +9,7 @@ const createChef = async (
   email: string
 ) => {
   const chef = await chefRepository.save({ firstName, lastName, phone, email });
-  return mappedChef(chef);
+  return chef;
 };
 
 const updateChef = async (
@@ -28,7 +26,7 @@ const updateChef = async (
     phone,
     email,
   });
-  return mappedChef(chef);
+  return chef;
 };
 
 export default { createChef, updateChef };
