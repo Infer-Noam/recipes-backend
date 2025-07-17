@@ -7,3 +7,10 @@ export type Chef = {
   deleteDate: Date;
   createDate: Date;
 };
+
+export type ChefDetails = {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+};

@@ -1,13 +1,9 @@
-import { RecipeIngredient } from "../../types/recipeIngredient.type";
-import { Recipe } from "../../types/recipe.type"
+import { Recipe, RecipeDetails } from "../../types/recipe.type";
 
 export type CreateRecipeReq = {
-  name: string;
-  steps: string[];
-  chefUuid: string;
-  ingredients: RecipeIngredient[];
+  recipeDetails: RecipeDetails;
 };
 
 export type CreateRecipeRes = {
-  recipe: Recipe
+  recipe: Recipe;
 };

@@ -10,3 +10,10 @@ export type Recipe = {
   deleteDate: Date;
   createDate: Date;
 };
+
+export type RecipeDetails = {
+  name: string;
+  steps: string[];
+  chefUuid: string;
+  ingredients: RecipeIngredient[];
+};

@@ -23,14 +23,7 @@ router.post(
     req: Request<null, null, CreateRecipeReq>,
     res: Response<CreateRecipeRes>
   ) => {
-    const { name, steps, chefUuid, ingredients } = req.body;
-
-    const recipe = await service.createRecipe(
-      name,
-      steps,
-      chefUuid,
-      ingredients
-    );
+    const recipe = await service.createRecipe(req.body.recipeDetails);
     if (!recipe) {
       res.sendStatus(500);
     } else {
@@ -45,15 +38,9 @@ router.put(
     req: Request<null, null, UpdateRecipeReq>,
     res: Response<UpdateRecipeRes>
   ) => {
-    const { uuid, name, steps, chefUuid, ingredients } = req.body;
+    const { uuid, recipeDetails } = req.body;
 
-    const recipe = await service.updateRecipe(
-      uuid,
-      name,
-      steps,
-      chefUuid,
-      ingredients
-    );
+    const recipe = await service.updateRecipe(uuid, recipeDetails);
 
     if (!recipe) {
       res.sendStatus(500);
@@ -77,7 +64,7 @@ router.delete(
 router.get("/", async (_: Request, res: Response<GetAllRecipesRes>) => {
   const recipes = await service.getAllRecipes();
 
-  if (recipes.length === 0) {
+  if (!recipes.length) {
     return res.sendStatus(404);
   }
 

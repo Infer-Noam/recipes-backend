@@ -1,32 +1,18 @@
 import { Chef } from "../chef/chef.entity";
 import { AppDataSource } from "../data-source";
+import { ChefDetails } from "@shared/types/chef.type";
+
 const chefRepository = AppDataSource.getRepository(Chef);
 
-const createChef = async (
-  firstName: string,
-  lastName: string,
-  phone: string,
-  email: string
-) => {
-  const chef = await chefRepository.save({ firstName, lastName, phone, email });
-  return chef;
+const createChef = async (details: ChefDetails) => {
+  return await chefRepository.save({ ...details });
 };
 
-const updateChef = async (
-  uuid: string,
-  firstName: string,
-  lastName: string,
-  phone: string,
-  email: string
-) => {
-  const chef = await chefRepository.save({
+const updateChef = async (uuid: string, details: ChefDetails) => {
+  return await chefRepository.save({
     uuid,
-    firstName,
-    lastName,
-    phone,
-    email,
+    ...details,
   });
-  return chef;
 };
 
 export default { createChef, updateChef };

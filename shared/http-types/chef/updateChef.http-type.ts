@@ -1,11 +1,8 @@
-import { Chef } from "../../types/chef.type";
+import { Chef, ChefDetails } from "../../types/chef.type";
 
 export type UpdateChefReq = {
   uuid: string;
-  firstName: string;
-  lastName: string;
-  phone: string;
-  email: string;
+  chefDetails: ChefDetails;
 };
 
 export type UpdateChefRes = {

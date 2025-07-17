@@ -1,12 +1,8 @@
-import { RecipeIngredient } from "../../types/recipeIngredient.type";
-import { Recipe } from "../../types/recipe.type";
+import { Recipe, RecipeDetails } from "../../types/recipe.type";
 
 export type UpdateRecipeReq = {
+  recipeDetails: RecipeDetails;
   uuid: string;
-  name: string;
-  steps: string[];
-  chefUuid: string;
-  ingredients: RecipeIngredient[];
 };
 
 export type UpdateRecipeRes = {

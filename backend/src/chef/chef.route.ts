@@ -17,9 +17,9 @@ router.post(
     req: Request<null, null, CreateChefReq>,
     res: Response<CreateChefRes>
   ) => {
-    const { firstName, lastName, phone, email } = req.body;
+    const { chefDetails } = req.body;
 
-    const chef = await service.createChef(firstName, lastName, phone, email);
+    const chef = await service.createChef(chefDetails);
 
     res.status(201).json({ chef });
   }
@@ -31,14 +31,11 @@ router.put(
     req: Request<null, null, UpdateChefReq>,
     res: Response<UpdateChefRes>
   ) => {
-    const { uuid, firstName, lastName, phone, email } = req.body;
+    const { uuid, chefDetails } = req.body;
 
     const chef = await service.updateChef(
       uuid,
-      firstName,
-      lastName,
-      phone,
-      email
+      chefDetails
     );
 
     res.status(200).json({ chef });

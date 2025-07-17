@@ -1,13 +1,9 @@
-import { Chef } from "../../types/chef.type"
+import { Chef, ChefDetails } from "../../types/chef.type";
 
 export type CreateChefReq = {
-  firstName: string;
-  lastName: string;
-  phone: string;
-  email: string;
+  chefDetails: ChefDetails
 };
 
 export type CreateChefRes = {
-  chef: Chef
+  chef: Chef;
 };
-

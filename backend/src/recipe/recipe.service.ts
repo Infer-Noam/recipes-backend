@@ -3,16 +3,14 @@ import { Chef } from "../chef/chef.entity";
 import { RecipeIngredient as RecipeIngredientEntity } from "../recipe/recipe-ingredient/recipeIngredient.entity";
 import { AppDataSource } from "../data-source";
 import { RecipeIngredient } from "@shared/types/recipeIngredient.type";
+import { RecipeDetails } from "@shared/types/recipe.type";
 
 const recipeRepository = AppDataSource.getRepository(Recipe);
 
 // The lambda saves the recipe first and than uses it's uuid to save the recipe ingredients
-const createRecipe = async (
-  name: string,
-  steps: string[],
-  chefUuid: string,
-  ingredients: RecipeIngredient[]
-) => {
+const createRecipe = async (recipeDetails: RecipeDetails) => {
+  const { name, steps, chefUuid, ingredients } = recipeDetails;
+
   await AppDataSource.transaction(async (transaction) => {
     // Takes all fields EXCEPT ingredients
     const recipe = await transaction.save(Recipe, {
@@ -32,19 +30,14 @@ const createRecipe = async (
       })
     );
   });
-  const recipe = await recipeRepository.findOne({
+  return await recipeRepository.findOne({
     where: { name, chef: { uuid: chefUuid } },
   });
-  return recipe;
 };
 
-const updateRecipe = async (
-  uuid: string,
-  name: string,
-  steps: string[],
-  chefUuid: string,
-  ingredients: RecipeIngredient[]
-) => {
+const updateRecipe = async (uuid: string, recipeDetails: RecipeDetails) => {
+  const { name, steps, chefUuid, ingredients } = recipeDetails;
+
   return await AppDataSource.transaction(async (transaction) => {
     const recipe = await transaction.findOneOrFail(Recipe, {
       where: { uuid },
@@ -90,24 +83,22 @@ const deleteRecipe = async (uuid: string) => {
 };
 
 const getAllRecipes = async () => {
-  const recipes = await recipeRepository.find({
+  return await recipeRepository.find({
     relations: {
       ingredients: true,
       chef: true,
     },
   });
-  return recipes;
 };
 
 const getRecipeByUuid = async (uuid: string) => {
-  const recipe = await recipeRepository.findOne({
+  return await recipeRepository.findOne({
     where: { uuid },
     relations: {
       ingredients: true,
       chef: true,
     },
   });
-  return recipe;
 };
 
 export default {
