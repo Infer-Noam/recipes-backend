@@ -1,6 +1,6 @@
 import { Entity, OneToMany, Column } from "typeorm";
-import { AuditEntity } from "../audit.entity";
 import { Recipe } from "./../recipe/recipe.entity";
+import { AuditEntity } from "../audit.entity";
 
 @Entity()
 export class Chef extends AuditEntity {
@@ -16,6 +16,8 @@ export class Chef extends AuditEntity {
   @Column({ type: "text", unique: true })
   email: string;
 
-  @OneToMany(() => Recipe, (Recipe) => Recipe.chef)
+  @OneToMany(() => Recipe, (Recipe) => Recipe.chef, {
+    cascade: true,
+  })
   recipes: Recipe[];
 }

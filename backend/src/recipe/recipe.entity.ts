@@ -1,40 +1,35 @@
-import {
-  Entity,
-  ManyToOne,
-  JoinColumn,
-  Column,
-  OneToMany,
-  Unique,
-} from "typeorm";
+import { Entity, ManyToOne, JoinColumn, Column, OneToMany } from "typeorm";
 import { AuditEntity } from "../audit.entity";
 import { Chef } from "../chef/chef.entity";
 import { RecipeIngredient } from "../recipe/recipe-ingredient/recipeIngredient.entity";
 
 @Entity()
-@Unique("UQ_chef_recipe", ["chefUuid", "name"]) // Ensures chef cannot 2 identical recipes
 export class Recipe extends AuditEntity {
-  // Kept for the unique constraint
-  @Column({ type: "uuid" })
-  chefUuid: string;
-
   @Column({ type: "varchar", length: 20 })
   name: string;
 
   @Column({ type: "text", array: true })
   steps: string[];
 
-  @ManyToOne(() => Chef, (Chef) => Chef.recipes, {
-    onDelete: "CASCADE",
-  })
+  @ManyToOne(() => Chef, (Chef) => Chef.recipes)
   @JoinColumn({
     name: "chef_uuid",
   })
   chef: Chef;
 
+  @Column({ type: "text" })
+  description: string;
+
+  @Column({ type: "text" })
+  imageUrl: string;
+
   @OneToMany(
     () => RecipeIngredient,
     (recipeIngredient) => recipeIngredient.recipe,
-    { cascade: true }
+    {
+      cascade: ["insert", "update", "remove", "soft-remove"],
+      orphanedRowAction: "soft-delete",
+    }
   )
   ingredients: RecipeIngredient[];
 }

@@ -5,24 +5,16 @@ import { PAGES_ROUTES } from "./router/routes.const";
 import { Drawer, Box } from "@mui/material";
 import { useState } from "react";
 import { DrawerList } from "./components/drawerList/drawerList";
-
-const drawerWidth = 255;
+import Styles from "./App.style";
 
 const App = () => {
   const [open, setOpen] = useState(true);
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={Styles.appContainer}>
         <Drawer
-          sx={{
-            width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: drawerWidth,
-              boxSizing: "border-box",
-            },
-          }}
+          sx={Styles.drawer}
           variant="persistent"
           open={open}
           onClose={() => setOpen(false)}
@@ -30,7 +22,7 @@ const App = () => {
           <DrawerList toggleDrawer={() => setOpen(open)} />
         </Drawer>
 
-        <Box component="main" sx={{ flexGrow: 1, padding: 3 }}>
+        <Box component="main" sx={Styles.mainContainer}>
           <Router routes={PAGES_ROUTES} />
         </Box>
       </Box>

@@ -1,19 +1,44 @@
-import { Router, Request, Response, NextFunction } from "express";
+import { Router, Request, Response } from "express";
 import service from "./chef.service";
-import { CreateChefReq } from "@shared/types/chef.type";
+import {
+  CreateChefReq,
+  CreateChefRes,
+} from "@shared/http-types/chef/createChef.http-type";
+import {
+  UpdateChefReq,
+  UpdateChefRes,
+} from "@shared/http-types/chef/updateChef.http-type";
 
 const router = Router();
 
 router.post(
   "/",
-  (req: Request<{}, {}, CreateChefReq>, res: Response, next: NextFunction) => {
-    const { firstName, lastName, phone, email } = req.body;
+  async (
+    req: Request<null, null, CreateChefReq>,
+    res: Response<CreateChefRes>
+  ) => {
+    const { chefDetails } = req.body;
 
-    const chef = service.createChef(firstName, lastName, phone, email);
+    const chef = await service.createChef(chefDetails);
 
-    res.status(201).json(chef);
+    res.status(201).json({ chef });
+  }
+);
 
-    next();
+router.put(
+  "/",
+  async (
+    req: Request<null, null, UpdateChefReq>,
+    res: Response<UpdateChefRes>
+  ) => {
+    const { uuid, chefDetails } = req.body;
+
+    const chef = await service.updateChef(
+      uuid,
+      chefDetails
+    );
+
+    res.status(200).json({ chef });
   }
 );
 

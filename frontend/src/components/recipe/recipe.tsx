@@ -12,16 +12,14 @@ import {
   IconButton,
   type IconButtonProps,
 } from "@mui/material";
-import { blue } from "@mui/material/colors";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Styles from "./recipe.style";
+import useToggle from "../../hooks/useToggle";
+import { type Recipe as RecipeModel } from "../../../../shared/types/recipe.type";
+
 type RecipeProps = {
-  recipeName: string;
-  chefName: string;
-  creationDate: Date;
-  steps: string[];
-  description: string,
-  imageUrl: string
+  recipe: RecipeModel;
 };
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -53,17 +51,14 @@ const ExpandMore = styled((props: ExpandMoreProps) => {
 }));
 
 export const Recipe: React.FC<RecipeProps> = (props) => {
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  const { open, toggle } = useToggle();
+  const recipe = props.recipe;
 
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={Styles.card}>
       <CardHeader
         avatar={
-          <Avatar sx={{ bgcolor: blue[500] }} aria-label="recipe">
+          <Avatar sx={Styles.avatar} aria-label="recipe">
             R
           </Avatar>
         }
@@ -72,38 +67,38 @@ export const Recipe: React.FC<RecipeProps> = (props) => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={props.recipeName}
-        subheader={`By ${props.chefName}`}
+        title={recipe.name}
+        subheader={`By ${recipe.chef.firstName}`}
       />
       <CardMedia
         component="img"
         height="194"
-        image={props.imageUrl}
+        image={recipe.imageUrl}
         alt="Paella dish"
       />
       <CardContent>
-        <Typography variant="body2" sx={{ color: "text.secondary" }}>
-          {props.description}
+        <Typography variant="body2" sx={Styles.descriptionTypography}>
+          {recipe.description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Typography variant="body2" sx={{}}>
-          {props.creationDate.toDateString()}
+        <Typography variant="body2" sx={Styles.creationDateTypography}>
+          {new Date(recipe.createDate).toDateString()}
         </Typography>
 
         <ExpandMore
-          expand={expanded}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
+          expand={open}
+          onClick={toggle}
+          aria-expanded={open}
           aria-label="show more"
         >
           <ExpandMoreIcon />
         </ExpandMore>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={open} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography sx={{ marginBottom: 2 }}>Method:</Typography>
-          {props.steps.map((step, index) => (
+          <Typography sx={Styles.methodTypography}>Method:</Typography>
+          {recipe.steps.map((step, index) => (
             <Typography key={index} sx={{ marginBottom: 2 }}>
               {step}
             </Typography>

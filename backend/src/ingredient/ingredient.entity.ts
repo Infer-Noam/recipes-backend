@@ -9,7 +9,10 @@ export class Ingredient extends AuditEntity {
 
   @OneToMany(
     () => RecipeIngredient,
-    (recipeIngredient) => recipeIngredient.ingredient
+    (recipeIngredient) => recipeIngredient.ingredient,
+    {
+      onDelete: "CASCADE",
+    }
   )
   recipesIngredients: RecipeIngredient[];
 }

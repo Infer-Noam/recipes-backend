@@ -1,10 +1,6 @@
-export type CreateIngredientReq = {
+export type Ingredient = {
   name: string;
-};
-
-export type CreateIngredientRes = {
-  name: string,
-  uuid: string,
-  deleteDate: Date,
-  createDate: Date,
+  uuid: string;
+  deleteDate: Date;
+  createDate: Date;
 };

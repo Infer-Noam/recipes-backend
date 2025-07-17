@@ -7,6 +7,7 @@ import ListItemText from "@mui/material/ListItemText";
 import React from "react";
 import { drawerListItems } from "../drawerList/drawerListItem/drawerListItems.const";
 import { useNavigate } from "react-router-dom";
+import Styles from "./drawerList.style";
 
 type DrawerListProps = {
   toggleDrawer: (open: boolean) => void;
@@ -17,7 +18,7 @@ export const DrawerList: React.FC<DrawerListProps> = ({ toggleDrawer }) => {
 
   return (
     <Box
-      sx={{ width: 250 }}
+      sx={Styles.container}
       role="presentation"
       onClick={() => toggleDrawer(false)}
     >
@@ -25,9 +26,7 @@ export const DrawerList: React.FC<DrawerListProps> = ({ toggleDrawer }) => {
         {drawerListItems.map((item) => (
           <ListItem key={item.name} disablePadding>
             <ListItemButton onClick={() => navigate(item.path)}>
-              <ListItemIcon>
-                <item.icon />
-              </ListItemIcon>
+              <ListItemIcon>{React.createElement(item.icon)}</ListItemIcon>
               <ListItemText primary={item.name} />
             </ListItemButton>
           </ListItem>
