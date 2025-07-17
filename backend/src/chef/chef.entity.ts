@@ -16,6 +16,8 @@ export class Chef extends AuditEntity {
   @Column({ type: "text", unique: true })
   email: string;
 
-  @OneToMany(() => Recipe, (Recipe) => Recipe.chef)
+  @OneToMany(() => Recipe, (Recipe) => Recipe.chef, {
+    cascade: true,
+  })
   recipes: Recipe[];
 }

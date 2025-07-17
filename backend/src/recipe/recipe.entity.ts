@@ -11,9 +11,7 @@ export class Recipe extends AuditEntity {
   @Column({ type: "text", array: true })
   steps: string[];
 
-  @ManyToOne(() => Chef, (Chef) => Chef.recipes, {
-    cascade: true,
-  })
+  @ManyToOne(() => Chef, (Chef) => Chef.recipes)
   @JoinColumn({
     name: "chef_uuid",
   })
@@ -23,7 +21,7 @@ export class Recipe extends AuditEntity {
     () => RecipeIngredient,
     (recipeIngredient) => recipeIngredient.recipe,
     {
-      cascade: ["insert", "update", "remove"],
+      cascade: ["insert", "update", "remove", "soft-remove"],
       orphanedRowAction: "soft-delete",
     }
   )

@@ -39,28 +39,13 @@ const updateRecipe = async (uuid: string, recipeDetails: RecipeDetails) => {
   const { name, steps, chefUuid, ingredients } = recipeDetails;
 
   return await AppDataSource.transaction(async (transaction) => {
-    const recipe = await transaction.findOneOrFail(Recipe, {
-      where: { uuid },
-      relations: { chef: true, ingredients: true },
+    const recipe = await transaction.save(Recipe, {
+      uuid,
+      name,
+      chef: { uuid: chefUuid },
+      steps,
+      ingredients: ingredients,
     });
-
-    recipe.name = name;
-    recipe.steps = steps;
-
-    const chef = await transaction.findOneByOrFail(Chef, { uuid: chefUuid });
-    recipe.chef = chef;
-
-    recipe.ingredients = await Promise.all(
-      ingredients.map(async (i) => {
-        const ri = await transaction.findOneByOrFail(RecipeIngredientEntity, {
-          uuid: i.uuid,
-        });
-        ri.recipe = recipe;
-        return ri;
-      })
-    );
-
-    await transaction.save(recipe);
 
     return recipe;
   });
