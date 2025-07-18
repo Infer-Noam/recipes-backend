@@ -2,27 +2,30 @@ import Router from "./router/Router";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./theme/theme";
 import { PAGES_ROUTES } from "./router/routes.const";
-import { Drawer, Box } from "@mui/material";
-import { useState } from "react";
-import { DrawerList } from "./components/drawerList/drawerList";
+import { Box, Toolbar } from "@mui/material";
 import Styles from "./App.style";
+import SideDrawer from "./components/sideDrawer/sideDrawer";
+import AppHeader from "./components/appHeader/appHeader.";
+import useToggle from "./hooks/useToggle";
 
 const App = () => {
-  const [open, setOpen] = useState(true);
+  const {
+    open: mobileDrawerOpen,
+    handleClose: handleMobileDrawerClose,
+    handleOpen: handleMobileDrawerOpen,
+  } = useToggle(false);
 
   return (
     <ThemeProvider theme={theme}>
-      <Box sx={Styles.appContainer}>
-        <Drawer
-          sx={Styles.drawer}
-          variant="persistent"
-          open={open}
-          onClose={() => setOpen(false)}
-        >
-          <DrawerList toggleDrawer={() => setOpen(open)} />
-        </Drawer>
+      <Box sx={Styles.rootLayout}>
+        <AppHeader handleMobileDrawerOpen={handleMobileDrawerOpen}></AppHeader>
 
-        <Box component="main" sx={Styles.mainContainer}>
+        <SideDrawer
+          mobileDrawerOpen={mobileDrawerOpen}
+          handleMobileDrawerClose={handleMobileDrawerClose}
+        />
+        <Box component="main" sx={Styles.contentArea}>
+          <Toolbar />
           <Router routes={PAGES_ROUTES} />
         </Box>
       </Box>

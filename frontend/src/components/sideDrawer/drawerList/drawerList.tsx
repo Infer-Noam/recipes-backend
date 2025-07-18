@@ -9,18 +9,13 @@ import { drawerListItems } from "../drawerList/drawerListItem/drawerListItems.co
 import { useNavigate } from "react-router-dom";
 import Styles from "./drawerList.style";
 
-type DrawerListProps = {
-  toggleDrawer: (open: boolean) => void;
-};
-
-export const DrawerList: React.FC<DrawerListProps> = ({ toggleDrawer }) => {
+export const DrawerList: React.FC = () => {
   const navigate = useNavigate();
 
   return (
     <Box
       sx={Styles.container}
       role="presentation"
-      onClick={() => toggleDrawer(false)}
     >
       <List>
         {drawerListItems.map((item) => (

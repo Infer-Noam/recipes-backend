@@ -74,7 +74,7 @@ export const Recipe: React.FC<RecipeProps> = (props) => {
         component="img"
         height="194"
         image={recipe.imageUrl}
-        alt="Paella dish"
+        alt={`An image of ${recipe.name}`}
       />
       <CardContent>
         <Typography variant="body2" sx={Styles.descriptionTypography}>
