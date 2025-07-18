@@ -1,7 +1,7 @@
 import type { SxProps } from "@mui/material";
 import { blue } from "@mui/material/colors";
 
-const card: SxProps = { maxWidth: 345 };
+const card: SxProps = { maxWidth: 345, borderRadius: "12px" };
 
 const avatar: SxProps = { bgcolor: blue[500] };
 

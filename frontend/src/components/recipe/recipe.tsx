@@ -55,7 +55,7 @@ export const Recipe: React.FC<RecipeProps> = (props) => {
   const recipe = props.recipe;
 
   return (
-    <Card sx={Styles.card}>
+    <Card variant="elevation" sx={Styles.card}>
       <CardHeader
         avatar={
           <Avatar sx={Styles.avatar} aria-label="recipe">

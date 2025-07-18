@@ -6,7 +6,11 @@ const mainContainer: SxProps<Theme> = (theme) => ({
   backgroundColor: theme.palette.background.default,
 });
 
-const appContainer: SxProps = { display: "flex" };
+const appContainer: SxProps = {
+  display: "flex",
+  height: "100dvh",
+  width: "100dvw",
+};
 const drawer: SxProps = {
   width: 255,
   flexShrink: 0,
