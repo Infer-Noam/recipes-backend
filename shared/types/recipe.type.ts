@@ -1,5 +1,5 @@
-import { RecipeIngredient } from "./recipeIngredient.type";
-import { Chef } from "../types/chef.type";
+import { type RecipeIngredient } from "./recipeIngredient.type";
+import { type Chef } from "../types/chef.type";
 
 export type Recipe = {
   uuid: string;
@@ -7,6 +7,8 @@ export type Recipe = {
   steps: string[];
   chef: Chef;
   ingredients: RecipeIngredient[];
+  description: string;
+  imageUrl: string;
   deleteDate: Date;
   createDate: Date;
 };
@@ -16,4 +18,6 @@ export type RecipeDetails = {
   steps: string[];
   chefUuid: string;
   ingredients: RecipeIngredient[];
+  description: string;
+  imageUrl: string;
 };

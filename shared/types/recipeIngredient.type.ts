@@ -1,6 +1,6 @@
 import { MeasurementUnit } from "../enums/measurement-unit.enum";
-import { Ingredient } from "../types/ingredient.type";
-import { Recipe } from "../types/recipe.type";
+import { type Ingredient } from "../types/ingredient.type";
+import { type Recipe } from "../types/recipe.type";
 
 export type RecipeIngredient = {
   uuid: string;

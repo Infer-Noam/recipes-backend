@@ -9,7 +9,8 @@ const recipeRepository = AppDataSource.getRepository(Recipe);
 
 // The lambda saves the recipe first and than uses it's uuid to save the recipe ingredients
 const createRecipe = async (recipeDetails: RecipeDetails) => {
-  const { name, steps, chefUuid, ingredients } = recipeDetails;
+  const { name, steps, chefUuid, ingredients, description, imageUrl } =
+    recipeDetails;
 
   await AppDataSource.transaction(async (transaction) => {
     // Takes all fields EXCEPT ingredients
@@ -17,6 +18,8 @@ const createRecipe = async (recipeDetails: RecipeDetails) => {
       name,
       chef: { uuid: chefUuid },
       steps,
+      description,
+      imageUrl,
     });
 
     /* Maps the recipe ingredients inside the req body into
@@ -36,7 +39,8 @@ const createRecipe = async (recipeDetails: RecipeDetails) => {
 };
 
 const updateRecipe = async (uuid: string, recipeDetails: RecipeDetails) => {
-  const { name, steps, chefUuid, ingredients } = recipeDetails;
+  const { name, steps, chefUuid, ingredients, description, imageUrl } =
+    recipeDetails;
 
   return await AppDataSource.transaction(async (transaction) => {
     const recipe = await transaction.save(Recipe, {
@@ -44,7 +48,9 @@ const updateRecipe = async (uuid: string, recipeDetails: RecipeDetails) => {
       name,
       chef: { uuid: chefUuid },
       steps,
-      ingredients: ingredients,
+      ingredients,
+      description,
+      imageUrl,
     });
 
     return recipe;

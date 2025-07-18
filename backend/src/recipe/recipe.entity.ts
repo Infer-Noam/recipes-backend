@@ -17,6 +17,12 @@ export class Recipe extends AuditEntity {
   })
   chef: Chef;
 
+  @Column({ type: "text" })
+  description: string;
+
+  @Column({ type: "text" })
+  imageUrl: string;
+
   @OneToMany(
     () => RecipeIngredient,
     (recipeIngredient) => recipeIngredient.recipe,
