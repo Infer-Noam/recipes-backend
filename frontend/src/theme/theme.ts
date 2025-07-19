@@ -1,15 +1,21 @@
-import { createTheme, type ThemeOptions } from "@mui/material/styles";
+import {
+  createTheme,
+  type ThemeOptions,
+  type Theme,
+} from "@mui/material/styles";
 
-export const themeOptions: ThemeOptions = {
+export type ColorMode = "dark" | "light";
+
+export const themeOptions: (colorMode: ColorMode) => ThemeOptions = (
+  colorMode
+) => ({
   palette: {
-    mode: "light",
+    mode: colorMode,
     primary: {
-      main: "#183858",
-    },
-    secondary: {
-      main: "#f50057",
+      main: "#ecececff",
     },
   },
-};
+});
 
-export const theme = createTheme(themeOptions);
+export const createAppTheme: (colorMode: ColorMode) => Theme = (colorMode) =>
+  createTheme(themeOptions(colorMode));

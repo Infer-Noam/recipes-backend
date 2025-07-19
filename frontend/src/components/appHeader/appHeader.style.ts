@@ -6,14 +6,28 @@ const appHeader: SxProps<Theme> = (theme) => ({
     xs: theme.zIndex.drawer - 1,
     sm: theme.zIndex.drawer + 1,
   },
+  borderBottomLeftRadius: 4,
+  borderBottomRightRadius: 4,
 });
+
+const typography: SxProps = {
+  fontFamily: "Sansation",
+  fontWeight: 600,
+  fontStyle: "italic",
+};
 
 const menuIconButton: SxProps = {
   mr: 2,
   display: {
-    xs: "block",
+    xs: "flex",
     sm: "none",
   },
 };
 
-export default { appHeader, menuIconButton };
+const spacer: SxProps = {
+  flexGrow: 1,
+};
+
+const logo: SxProps = { height: 30, ml: 1, mr: 1 };
+
+export default { appHeader, menuIconButton, spacer, typography, logo };

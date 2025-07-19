@@ -1,4 +1,4 @@
-import { type SxProps, styled } from "@mui/material";
+import { type SxProps, type Theme, styled } from "@mui/material";
 
 export const drawerWidth = 245;
 
@@ -8,7 +8,10 @@ const drawer: SxProps = {
 };
 const permanentDrawer: SxProps = {
   ...drawer,
-  [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: "border-box" },
+  [`& .MuiDrawer-paper`]: {
+    width: drawerWidth,
+    boxSizing: "border-box",
+  },
   display: { xs: "none", sm: "block" },
 };
 
@@ -21,6 +24,15 @@ const temporaryDrawer: SxProps = {
   display: { xs: "block", sm: "none" },
 };
 
+const temporaryDrawerPaper: SxProps<Theme> = {
+  borderTopRightRadius: 8,
+  borderBottomRightRadius: 8,
+};
+
+const permenentDrawerPaper: SxProps<Theme> = {
+  borderBottomRightRadius: 8,
+};
+
 export const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
@@ -29,4 +41,9 @@ export const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-start",
 }));
 
-export default { permanentDrawer, temporaryDrawer };
+export default {
+  permanentDrawer,
+  permenentDrawerPaper,
+  temporaryDrawer,
+  temporaryDrawerPaper,
+};

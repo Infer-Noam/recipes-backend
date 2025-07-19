@@ -15,7 +15,16 @@ const SideDrawer: FC<SideDrawerProps> = ({
 }: SideDrawerProps) => {
   return (
     <>
-      <Drawer sx={Styles.permanentDrawer} variant="permanent">
+      <Drawer
+        sx={Styles.permanentDrawer}
+        variant="permanent"
+        slotProps={{
+          paper: {
+            sx: Styles.permenentDrawerPaper,
+            elevation: 3,
+          },
+        }}
+      >
         <Toolbar />
         <DrawerList />
       </Drawer>
@@ -28,6 +37,10 @@ const SideDrawer: FC<SideDrawerProps> = ({
         slotProps={{
           root: {
             keepMounted: true,
+          },
+          paper: {
+            sx: Styles.temporaryDrawerPaper,
+            elevation: 3,
           },
         }}
       >
