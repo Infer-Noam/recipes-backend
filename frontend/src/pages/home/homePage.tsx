@@ -1,19 +1,13 @@
 import { Recipe } from "../../components/recipe/recipe";
 import { Box, Grid } from "@mui/material";
+import { useGetRecipes } from "../../hooks/api/useGetRecipes.api";
 import api from "../../api";
-import { type GetAllRecipesRes } from "../../../../shared/http-types/recipe/getAllRecipes.http-type";
 import { type DeleteRecipeReq } from "../../../../shared/http-types/recipe/deleteRecipe.http-type";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 import Styles from "./homePage";
 
 const HomePage = () => {
-  const { data: recipes } = useQuery({
-    queryKey: ["recipeData"],
-    queryFn: () =>
-      api
-        .get<GetAllRecipesRes>("/recipe")
-        .then((response) => response.data.recipes),
-  });
+  const { data: recipes } = useGetRecipes();
 
   const queryClient = useQueryClient();
 
@@ -54,7 +48,7 @@ const HomePage = () => {
         </Grid>
       </Box>
     );
-  }
+  } else return null;
 };
 
 export default HomePage;

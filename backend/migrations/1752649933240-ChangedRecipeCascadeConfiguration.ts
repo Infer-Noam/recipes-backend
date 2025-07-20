@@ -1,16 +1,25 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class ChangedRecipeCascadeConfiguration1752649933240 implements MigrationInterface {
-    name = 'ChangedRecipeCascadeConfiguration1752649933240'
+export class ChangedRecipeCascadeConfiguration1752649933240
+  implements MigrationInterface
+{
+  name = "ChangedRecipeCascadeConfiguration1752649933240";
 
-    public async up(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`ALTER TABLE "recipe" DROP CONSTRAINT "FK_066b30eedb42e8c59ac15eeac15"`);
-        await queryRunner.query(`ALTER TABLE "recipe" ADD CONSTRAINT "FK_066b30eedb42e8c59ac15eeac15" FOREIGN KEY ("chef_uuid") REFERENCES "chef"("uuid") ON DELETE NO ACTION ON UPDATE NO ACTION`);
-    }
+  public async up(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `ALTER TABLE ${process.env.DB_SCHEMA}."recipe" DROP CONSTRAINT "FK_066b30eedb42e8c59ac15eeac15"`
+    );
+    await queryRunner.query(
+      `ALTER TABLE ${process.env.DB_SCHEMA}."recipe" ADD CONSTRAINT "FK_066b30eedb42e8c59ac15eeac15" FOREIGN KEY ("chef_uuid") REFERENCES "chef"("uuid") ON DELETE NO ACTION ON UPDATE NO ACTION`
+    );
+  }
 
-    public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.query(`ALTER TABLE "recipe" DROP CONSTRAINT "FK_066b30eedb42e8c59ac15eeac15"`);
-        await queryRunner.query(`ALTER TABLE "recipe" ADD CONSTRAINT "FK_066b30eedb42e8c59ac15eeac15" FOREIGN KEY ("chef_uuid") REFERENCES "chef"("uuid") ON DELETE CASCADE ON UPDATE NO ACTION`);
-    }
-
+  public async down(queryRunner: QueryRunner): Promise<void> {
+    await queryRunner.query(
+      `ALTER TABLE ${process.env.DB_SCHEMA}."recipe" DROP CONSTRAINT "FK_066b30eedb42e8c59ac15eeac15"`
+    );
+    await queryRunner.query(
+      `ALTER TABLE ${process.env.DB_SCHEMA}."recipe" ADD CONSTRAINT "FK_066b30eedb42e8c59ac15eeac15" FOREIGN KEY ("chef_uuid") REFERENCES "chef"("uuid") ON DELETE CASCADE ON UPDATE NO ACTION`
+    );
+  }
 }

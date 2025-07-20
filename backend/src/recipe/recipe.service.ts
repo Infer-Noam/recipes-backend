@@ -13,7 +13,6 @@ const relations: FindOptionsRelations<Recipe> = {
   chef: true,
 };
 
-// The lambda saves the recipe first and than uses it's uuid to save the recipe ingredients
 const createRecipe = async (recipeDetails: RecipeDetails) => {
   const { chefUuid, ...rest } = recipeDetails;
 
@@ -47,7 +46,6 @@ const deleteRecipe = async (uuid: string) => {
   });
   if (!exist) return false;
 
-  // Cascade dosent support soft delete
   await AppDataSource.transaction(async (transaction) => {
     await transaction.softDelete(RecipeIngredientEntity, { recipe: { uuid } });
 
