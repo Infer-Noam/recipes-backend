@@ -9,19 +9,54 @@ const rootLayout: SxProps<Theme> = (theme) => ({
   alignItems: "flex-start",
   backgroundColor: theme.palette.background.default,
 });
-
 const contentArea: SxProps<Theme> = (theme) => ({
   position: "fixed",
   left: { xs: 0, sm: drawerWidth },
-  padding: theme.spacing(3),
-  height: "100dvh",
-  overflow: "scroll",
-    '&::-webkit-scrollbar': {
-    width: '6px',           // reduces horizontal scrollbar height
-    height: '6px',          // reduces vertical scrollbar thickness
+  right: 0,
+  top: {
+    xs: "56px",
+    sm: "64px",
   },
-});
+  bottom: 0,
+  padding: theme.spacing(3),
+  overflow: "auto",
 
+  "&::-webkit-scrollbar": {
+    width: "8px",
+  },
+  "&::-webkit-scrollbar-track": {
+    backgroundColor:
+      theme.palette.mode === "dark"
+        ? theme.palette.grey[800]
+        : theme.palette.grey[100],
+    borderRadius: "4px",
+  },
+  "&::-webkit-scrollbar-thumb": {
+    backgroundColor:
+      theme.palette.mode === "dark"
+        ? theme.palette.grey[600]
+        : theme.palette.grey[400],
+    borderRadius: "4px",
+    "&:hover": {
+      backgroundColor:
+        theme.palette.mode === "dark"
+          ? theme.palette.grey[500]
+          : theme.palette.grey[500],
+    },
+  },
+  "&::-webkit-scrollbar-corner": {
+    backgroundColor:
+      theme.palette.mode === "dark"
+        ? theme.palette.grey[800]
+        : theme.palette.grey[100],
+  },
+
+  scrollbarWidth: "thin",
+  scrollbarColor:
+    theme.palette.mode === "dark"
+      ? `${theme.palette.grey[600]} ${theme.palette.grey[800]}`
+      : `${theme.palette.grey[400]} ${theme.palette.grey[100]}`,
+});
 export default {
   rootLayout,
   contentArea,

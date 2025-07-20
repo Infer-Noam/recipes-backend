@@ -33,7 +33,7 @@ const HomePage = () => {
 
   if (recipes) {
     return (
-      <Box sx={Styles.box}>
+      <Box>
         <Grid
           container
           sx={Styles.gridContainer}
