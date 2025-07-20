@@ -7,11 +7,12 @@ const mainContainer: SxProps<Theme> = (theme) => ({
 });
 
 const appContainer: SxProps = { display: "flex" };
+
 const drawer: SxProps = {
-  width: 255,
+  width: "255px",
   flexShrink: 0,
   "& .MuiDrawer-paper": {
-    width: 255,
+    width: "255px",
     boxSizing: "border-box",
   },
 };
