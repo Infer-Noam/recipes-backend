@@ -1,4 +1,4 @@
-import { type SxProps, type Theme, styled } from "@mui/material";
+import { type SxProps, styled } from "@mui/material";
 
 export const drawerWidth = "245px";
 
@@ -24,11 +24,11 @@ const temporaryDrawer: SxProps = {
   display: { xs: "block", sm: "none" },
 };
 
-const temporaryDrawerPaper: SxProps<Theme> = {
+const temporaryDrawerPaper: SxProps = {
   borderEndRadius: 8,
 };
 
-const permenentDrawerPaper: SxProps<Theme> = {
+const permenentDrawerPaper: SxProps = {
   borderBottomRightRadius: 8,
 };
 

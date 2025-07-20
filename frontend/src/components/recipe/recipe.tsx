@@ -56,6 +56,7 @@ export const Recipe: React.FC<RecipeProps> = ({
             <Avatar
               alt={`${chef.firstName} ${chef.lastName}`}
               src={chefAvatarSrc}
+              sx={Styles.chefAvatar}
             />
           }
           action={
