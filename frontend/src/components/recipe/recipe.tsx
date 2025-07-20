@@ -21,15 +21,12 @@ type RecipeProps = {
   recipe: RecipeModel;
 };
 
-interface ExpandMoreProps extends IconButtonProps {
+type ExpandMoreProps = IconButtonProps & {
   expand: boolean;
-}
+};
 
- const ExpandMore: React.FC<ExpandMoreProps> = ({ expand, ...other }) => (
-  <IconButton
-    {...other}
-    sx={Styles.expandMore(expand)}
-  />
+const ExpandMore: React.FC<ExpandMoreProps> = ({ expand, ...other }) => (
+  <IconButton {...other} sx={Styles.expandMore(expand)} />
 );
 
 export const Recipe: React.FC<RecipeProps> = ({
@@ -53,12 +50,7 @@ export const Recipe: React.FC<RecipeProps> = ({
         title={name}
         subheader={`By ${chef.firstName}`}
       />
-      <CardMedia
-        component="img"
-        height="194"
-        image={imageUrl}
-        alt="Paella dish"
-      />
+      <CardMedia component="img" height="194" image={imageUrl} alt={name} />
       <CardContent>
         <Typography variant="body2" sx={Styles.descriptionTypography}>
           {description}
@@ -68,7 +60,6 @@ export const Recipe: React.FC<RecipeProps> = ({
         <Typography variant="body2">
           {new Date(createDate).toDateString()}
         </Typography>
-
         <ExpandMore
           expand={open}
           onClick={toggle}

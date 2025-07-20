@@ -23,11 +23,13 @@ export const DrawerList: React.FC<DrawerListProps> = ({ toggleDrawer }) => {
       onClick={() => toggleDrawer(false)}
     >
       <List>
-        {drawerListItems.map((item) => (
-          <ListItem key={item.name} disablePadding>
-            <ListItemButton onClick={() => navigate(item.path)}>
-              <ListItemIcon>{React.createElement(item.icon)}</ListItemIcon>
-              <ListItemText primary={item.name} />
+        {drawerListItems.map(({ name, path, icon: ItemIcon }) => (
+          <ListItem key={name} disablePadding>
+            <ListItemButton onClick={() => navigate(path)}>
+              <ListItemIcon>
+                <ItemIcon />
+              </ListItemIcon>
+              <ListItemText primary={name} />
             </ListItemButton>
           </ListItem>
         ))}
