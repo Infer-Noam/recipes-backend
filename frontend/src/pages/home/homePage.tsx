@@ -1,17 +1,10 @@
 import { Recipe } from "../../components/recipe/recipe";
 import { Box, Grid } from "@mui/material";
-import api from "../../api";
-import { type GetAllRecipesRes } from "../../../../shared/http-types/recipe/getAllRecipes.http-type";
-import { useQuery } from "@tanstack/react-query";
+import { useGetRecipes } from "../../hooks/api/useGetRecipes.api";
 
 const HomePage = () => {
-  const { data: recipes } = useQuery({
-    queryKey: ["recipeData"],
-    queryFn: () =>
-      api
-        .get<GetAllRecipesRes>("/recipe")
-        .then((response) => response.data.recipes),
-  });
+  const { data: recipes } = useGetRecipes();
+
   if (recipes) {
     return (
       <Box>
@@ -24,7 +17,7 @@ const HomePage = () => {
         </Grid>
       </Box>
     );
-  }
+  } else return null;
 };
 
 export default HomePage;

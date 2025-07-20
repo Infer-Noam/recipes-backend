@@ -1,9 +1,9 @@
-const RecipeEditPage = () => {
-  return (
-    <div style={{ backgroundColor: "yellow", padding: "20px" }}>
-      <h1>EDIT</h1>
-    </div>
-  );
-};
+import { Box, Typography } from "@mui/material";
+
+const RecipeEditPage = (
+  <Box>
+    <Typography>Edit</Typography>
+  </Box>
+);
 
 export default RecipeEditPage;

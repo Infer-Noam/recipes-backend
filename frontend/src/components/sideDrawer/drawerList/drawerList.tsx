@@ -18,18 +18,20 @@ export const DrawerList: React.FC<DrawerListProps> = ({ navigate }) => {
   return (
     <Box sx={Styles.container} role="presentation">
       <List>
-        {drawerListItems.map((item, index) => (
-          <ListItem key={item.name} disablePadding>
+        {drawerListItems.map(({ name, path, icon: ItemIcon }, index) => (
+          <ListItem key={name} disablePadding>
             <ListItemButton
               sx={Styles.listItem}
               onClick={() => {
                 setSelectedIndex(index);
-                navigate(item.path);
+                navigate(path);
               }}
               selected={index === selectedIndex}
             >
-              <ListItemIcon>{React.createElement(item.icon)}</ListItemIcon>
-              <ListItemText primary={item.name} />
+              <ListItemIcon>
+                <ItemIcon></ItemIcon>
+              </ListItemIcon>
+              <ListItemText primary={name} />
             </ListItemButton>
           </ListItem>
         ))}

@@ -21,15 +21,12 @@ type RecipeProps = {
   recipe: RecipeModel;
 };
 
-interface ExpandMoreProps extends IconButtonProps {
+type ExpandMoreProps = IconButtonProps & {
   expand: boolean;
-}
+};
 
- const ExpandMore: React.FC<ExpandMoreProps> = ({ expand, ...other }) => (
-  <IconButton
-    {...other}
-    sx={Styles.expandMore(expand)}
-  />
+const ExpandMore: React.FC<ExpandMoreProps> = ({ expand, ...other }) => (
+  <IconButton {...other} sx={Styles.expandMore(expand)} />
 );
 
 export const Recipe: React.FC<RecipeProps> = ({
@@ -68,7 +65,6 @@ export const Recipe: React.FC<RecipeProps> = ({
         <Typography variant="body2">
           {new Date(createDate).toDateString()}
         </Typography>
-
         <ExpandMore
           expand={open}
           onClick={toggle}

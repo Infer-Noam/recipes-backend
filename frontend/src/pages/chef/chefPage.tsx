@@ -1,9 +1,9 @@
-const ChefPage = () => {
-  return (
-    <div>
-      <h1>CHEF</h1>
-    </div>
-  );
-};
+import { Box, Typography } from "@mui/material";
+
+const ChefPage = () => (
+  <Box>
+    <Typography>Chef</Typography>
+  </Box>
+);
 
 export default ChefPage;
