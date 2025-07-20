@@ -11,12 +11,15 @@ const rootLayout: SxProps<Theme> = (theme) => ({
 });
 
 const contentArea: SxProps<Theme> = (theme) => ({
-  width: "100dvw",
-  height: "100dvh",
   position: "fixed",
   left: { xs: 0, sm: drawerWidth },
   padding: theme.spacing(3),
-  overflow: "auto",
+  height: "100dvh",
+  overflow: "scroll",
+    '&::-webkit-scrollbar': {
+    width: '6px',           // reduces horizontal scrollbar height
+    height: '6px',          // reduces vertical scrollbar thickness
+  },
 });
 
 export default {

@@ -25,8 +25,7 @@ const temporaryDrawer: SxProps = {
 };
 
 const temporaryDrawerPaper: SxProps<Theme> = {
-  borderTopRightRadius: 8,
-  borderBottomRightRadius: 8,
+  borderEndRadius: 8,
 };
 
 const permenentDrawerPaper: SxProps<Theme> = {

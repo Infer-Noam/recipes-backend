@@ -1,7 +1,10 @@
 import type { SxProps } from "@mui/material";
 
-const grid: SxProps = {
+const box: SxProps = {
+};
+const gridContainer: SxProps = {
   justifyContent: "center",
+  alignItems: "flex-start",
 };
 
-export default { grid };
+export default { box, gridContainer };

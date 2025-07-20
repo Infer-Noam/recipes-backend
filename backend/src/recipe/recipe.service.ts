@@ -2,8 +2,16 @@ import { Recipe } from "./recipe.entity";
 import { RecipeIngredient as RecipeIngredientEntity } from "../recipe/recipe-ingredient/recipeIngredient.entity";
 import { AppDataSource } from "../data-source";
 import { RecipeDetails } from "@shared/types/recipe.type";
+import { FindOptionsRelations } from "typeorm";
 
 const recipeRepository = AppDataSource.getRepository(Recipe);
+
+const relations: FindOptionsRelations<Recipe> = {
+  ingredients: {
+    ingredient: true,
+  },
+  chef: true,
+};
 
 // The lambda saves the recipe first and than uses it's uuid to save the recipe ingredients
 const createRecipe = async (recipeDetails: RecipeDetails) => {
@@ -51,20 +59,14 @@ const deleteRecipe = async (uuid: string) => {
 
 const getAllRecipes = async () => {
   return await recipeRepository.find({
-    relations: {
-      ingredients: true,
-      chef: true,
-    },
+    relations,
   });
 };
 
 const getRecipeByUuid = async (uuid: string) => {
   return await recipeRepository.findOne({
     where: { uuid },
-    relations: {
-      ingredients: true,
-      chef: true,
-    },
+    relations,
   });
 };
 

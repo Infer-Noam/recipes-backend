@@ -16,7 +16,7 @@ export const DrawerList: React.FC<DrawerListProps> = ({ navigate }) => {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   return (
-    <Box sx={Styles.container} role="presentation">
+    <Box role="presentation">
       <List>
         {drawerListItems.map((item, index) => (
           <ListItem key={item.name} disablePadding>

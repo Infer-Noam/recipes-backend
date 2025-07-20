@@ -55,7 +55,7 @@ const SideDrawer: FC<SideDrawerProps> = ({
         <Divider />
         <DrawerList
           navigate={(p) => {
-            navigate(p);
+            navigate(p, { replace: true });
             handleMobileDrawerClose();
           }}
         />
