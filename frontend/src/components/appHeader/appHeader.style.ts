@@ -28,6 +28,6 @@ const spacer: SxProps = {
   flexGrow: 1,
 };
 
-const logo: SxProps = { height: 30, ml: 1, mr: 1 };
+const logo: SxProps = { height: "30px", ml: 1, mr: 1 };
 
 export default { appHeader, menuIconButton, spacer, typography, logo };

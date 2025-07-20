@@ -5,8 +5,8 @@ import RecipeEditPage from "../pages/recipe-edit/recipeEdit";
 import ChefPage from "../pages/chef/chefPage";
 
 export const PAGES_ROUTES: RouteProps[] = [
-  { element: <HomePage></HomePage>, path: "/" },
-  { element: <RecipeCreationPage></RecipeCreationPage>, path: "/creation" },
-  { element: <RecipeEditPage></RecipeEditPage>, path: "/edit" },
-  { element: <ChefPage></ChefPage>, path: "/chef" },
+  { element: <HomePage />, path: "/" },
+  { element: <RecipeCreationPage />, path: "/creation" },
+  { element: <RecipeEditPage />, path: "/edit" },
+  { element: <ChefPage />, path: "/chef" },
 ];

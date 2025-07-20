@@ -1,6 +1,6 @@
 import { type SxProps, type Theme, styled } from "@mui/material";
 
-export const drawerWidth = 245;
+export const drawerWidth = "245px";
 
 const drawer: SxProps = {
   width: drawerWidth,

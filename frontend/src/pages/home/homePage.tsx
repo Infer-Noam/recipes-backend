@@ -1,31 +1,30 @@
 import { Recipe } from "../../components/recipe/recipe";
-import { Grid } from "@mui/material";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { Box, Grid } from "@mui/material";
+import api from "../../api";
 import { type GetAllRecipesRes } from "../../../../shared/http-types/recipe/getAllRecipes.http-type";
-import { type Recipe as RecipeModel } from "../../../../shared/types/recipe.type";
-import Styles from "./homePage";
+import { useQuery } from "@tanstack/react-query";
 
 const HomePage = () => {
-  const [recipes, setRecipes] = useState<RecipeModel[]>([]);
-
-  useEffect(() => {
-    axios
-      .get<GetAllRecipesRes>("http://localhost:8080/api/recipe")
-      .then(function (response) {
-        setRecipes(response.data.recipes);
-      });
+  const { data: recipes } = useQuery({
+    queryKey: ["recipeData"],
+    queryFn: () =>
+      api
+        .get<GetAllRecipesRes>("/recipe")
+        .then((response) => response.data.recipes),
   });
-
-  return (
-    <Grid sx={Styles.grid} container rowSpacing={2.5} columnSpacing={3.5}>
-      {[...recipes,].map((recipe) => (
-        <Grid key={recipe.uuid}>
-          <Recipe recipe={recipe} />
+  if (recipes) {
+    return (
+      <Box>
+        <Grid container rowSpacing={2.5} columnSpacing={3.5}>
+          {recipes.map((recipe) => (
+            <Grid key={recipe.uuid}>
+              <Recipe recipe={recipe} />
+            </Grid>
+          ))}
         </Grid>
-      ))}
-    </Grid>
-  );
+      </Box>
+    );
+  }
 };
 
 export default HomePage;

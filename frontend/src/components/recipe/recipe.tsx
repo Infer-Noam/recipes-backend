@@ -1,5 +1,4 @@
 import * as React from "react";
-import { styled } from "@mui/material/styles";
 import {
   Card,
   CardHeader,
@@ -26,33 +25,17 @@ interface ExpandMoreProps extends IconButtonProps {
   expand: boolean;
 }
 
-const ExpandMore = styled((props: ExpandMoreProps) => {
-  const { expand, ...other } = props;
-  return <IconButton {...other} />;
-})(({ theme }) => ({
-  marginLeft: "auto",
-  transition: theme.transitions.create("transform", {
-    duration: theme.transitions.duration.shortest,
-  }),
-  variants: [
-    {
-      props: ({ expand }) => !expand,
-      style: {
-        transform: "rotate(0deg)",
-      },
-    },
-    {
-      props: ({ expand }) => !!expand,
-      style: {
-        transform: "rotate(180deg)",
-      },
-    },
-  ],
-}));
+ const ExpandMore: React.FC<ExpandMoreProps> = ({ expand, ...other }) => (
+  <IconButton
+    {...other}
+    sx={Styles.expandMore(expand)}
+  />
+);
 
-export const Recipe: React.FC<RecipeProps> = (props) => {
+export const Recipe: React.FC<RecipeProps> = ({
+  recipe: { name, imageUrl, chef, description, createDate, steps },
+}) => {
   const { open, toggle } = useToggle();
-  const recipe = props.recipe;
 
   return (
     <Card variant="elevation" sx={Styles.card}>
@@ -67,23 +50,23 @@ export const Recipe: React.FC<RecipeProps> = (props) => {
             <MoreVertIcon />
           </IconButton>
         }
-        title={recipe.name}
-        subheader={`By ${recipe.chef.firstName}`}
+        title={name}
+        subheader={`By ${chef.firstName}`}
       />
       <CardMedia
         component="img"
         height="194"
-        image={recipe.imageUrl}
-        alt={`An image of ${recipe.name}`}
+        image={imageUrl}
+        alt={`An image of ${name}`}
       />
       <CardContent>
         <Typography variant="body2" sx={Styles.descriptionTypography}>
-          {recipe.description}
+          {description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <Typography variant="body2" sx={Styles.creationDateTypography}>
-          {new Date(recipe.createDate).toDateString()}
+        <Typography variant="body2">
+          {new Date(createDate).toDateString()}
         </Typography>
 
         <ExpandMore
@@ -98,8 +81,8 @@ export const Recipe: React.FC<RecipeProps> = (props) => {
       <Collapse in={open} timeout="auto" unmountOnExit>
         <CardContent>
           <Typography sx={Styles.methodTypography}>Method:</Typography>
-          {recipe.steps.map((step, index) => (
-            <Typography key={index} sx={{ marginBottom: 2 }}>
+          {steps.map((step, index) => (
+            <Typography key={index} sx={Styles.stepTypography}>
               {step}
             </Typography>
           ))}

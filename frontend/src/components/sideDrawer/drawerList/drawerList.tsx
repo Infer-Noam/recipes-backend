@@ -6,21 +6,28 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import React from "react";
 import { drawerListItems } from "../drawerList/drawerListItem/drawerListItems.const";
-import { useNavigate } from "react-router-dom";
 import Styles from "./drawerList.style";
 
-export const DrawerList: React.FC = () => {
-  const navigate = useNavigate();
+type DrawerListProps = {
+  navigate: (path: string) => void;
+};
+
+export const DrawerList: React.FC<DrawerListProps> = ({ navigate }) => {
+  const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   return (
-    <Box
-      sx={Styles.container}
-      role="presentation"
-    >
+    <Box sx={Styles.container} role="presentation">
       <List>
-        {drawerListItems.map((item) => (
+        {drawerListItems.map((item, index) => (
           <ListItem key={item.name} disablePadding>
-            <ListItemButton onClick={() => navigate(item.path)}>
+            <ListItemButton
+              sx={Styles.listItem}
+              onClick={() => {
+                setSelectedIndex(index);
+                navigate(item.path);
+              }}
+              selected={index === selectedIndex}
+            >
               <ListItemIcon>{React.createElement(item.icon)}</ListItemIcon>
               <ListItemText primary={item.name} />
             </ListItemButton>
