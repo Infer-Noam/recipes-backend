@@ -3,19 +3,14 @@ import { Box, Grid } from "@mui/material";
 import { useGetRecipes } from "../../hooks/api/useGetRecipes.api";
 import Styles from "./homePage.style";
 import { useDeleteRecipe } from "../../hooks/api/useDeleteRecipe.api";
+import { chefSrcArray } from "../../consts/chefSrcArray.const";
 
 const HomePage = () => {
   const { data: recipes } = useGetRecipes();
 
   const { mutate: deleteRecipe } = useDeleteRecipe();
 
-  const chefSrcArray = [227920, 240413, 227924, 44252, 33158, 218334].map(
-    (n) => {
-      return `https://www.svgrepo.com/show/${n}/chef.svg`;
-    }
-  );
-
-  const chefSrc = () =>
+  const getRandomChefSrc = () =>
     chefSrcArray[Math.floor(Math.random() * chefSrcArray.length)];
 
   if (recipes) {
@@ -34,7 +29,7 @@ const HomePage = () => {
                 deleteRecipe={() => {
                   deleteRecipe(recipe.uuid);
                 }}
-                chefAvatarSrc={chefSrc()}
+                chefAvatarSrc={getRandomChefSrc()}
               />
             </Grid>
           ))}
