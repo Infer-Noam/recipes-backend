@@ -11,6 +11,21 @@ export type ColorMode = "dark" | "light";
 export const getColorModeIcon = (colorMode: ColorMode) =>
   colorMode === "light" ? <LightModeIcon /> : <DarkModeIcon />;
 
+declare module "@mui/material/styles" {
+  interface Palette {
+    border: {
+      primary: string;
+      secondary: string;
+    };
+  }
+
+  interface PaletteOptions {
+    border?: {
+      primary?: string;
+    };
+  }
+}
+
 export const themeOptions: (colorMode: ColorMode) => ThemeOptions = (
   colorMode
 ) => ({
@@ -18,6 +33,9 @@ export const themeOptions: (colorMode: ColorMode) => ThemeOptions = (
     mode: colorMode,
     primary: {
       main: "#ecececff",
+    },
+    border: {
+      primary: colorMode === "light" ? "#bdbdbd" : "#616161",
     },
   },
 });
