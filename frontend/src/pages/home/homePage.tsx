@@ -1,20 +1,13 @@
 import { Recipe } from "../../components/recipe/recipe";
 import { Box, Grid } from "@mui/material";
 import { useGetRecipes } from "../../hooks/api/useGetRecipes.api";
-import api from "../../api";
-import { type DeleteRecipeReq } from "../../../../shared/http-types/recipe/deleteRecipe.http-type";
-import { useQueryClient } from "@tanstack/react-query";
 import Styles from "./homePage";
+import { useDeleteRecipe } from "../../hooks/api/useDeleteRecipe.api";
 
 const HomePage = () => {
   const { data: recipes } = useGetRecipes();
 
-  const queryClient = useQueryClient();
-
-  const deleteRecipe = async (uuid: string) => {
-    await api.delete<DeleteRecipeReq>("/recipe", { data: { uuid } });
-    queryClient.invalidateQueries({ queryKey: ["recipeData"] });
-  };
+  const { mutate: deleteRecipe } = useDeleteRecipe();
 
   const chefSrcArray = [227920, 240413, 227924, 44252, 33158, 218334].map(
     (n) => {
