@@ -29,7 +29,7 @@ export const DrawerList: React.FC<DrawerListProps> = ({ navigate }) => {
               selected={index === selectedIndex}
             >
               <ListItemIcon>
-                <ItemIcon />
+                <ItemIcon></ItemIcon>
               </ListItemIcon>
               <ListItemText primary={name} />
             </ListItemButton>

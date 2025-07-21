@@ -2,8 +2,8 @@ import type { SxProps, Theme } from "@mui/material";
 import { drawerWidth } from "./components/sideDrawer/sideDrawer.style";
 
 const rootLayout: SxProps<Theme> = (theme) => ({
-  width: "100dvw",
-  height: "100dvh",
+  width: "100vw",
+  height: "100vh",
   display: "flex",
   flexDirection: "column",
   alignItems: "flex-start",

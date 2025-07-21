@@ -1,8 +1,7 @@
 import { type FC, useContext } from "react";
 import { AppBar, IconButton, Toolbar, Typography, Box } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import DarkModeIcon from "@mui/icons-material/DarkMode";
-import LightModeIcon from "@mui/icons-material/LightMode";
+import { getColorModeIcon } from "../../theme/theme";
 import Styles from "./appHeader.style";
 import { ColorModeContext } from "../../contexts/ColorMode.context";
 
@@ -27,16 +26,13 @@ const AppHeader: FC<AppHeaderProps> = ({
         >
           <MenuIcon />
         </IconButton>
-
         <Box component="img" src="/logo.svg" alt="App Logo" sx={Styles.logo} />
         <Typography sx={Styles.typography} variant="h6" noWrap component="div">
           Recipes
         </Typography>
-
         <Box sx={Styles.spacer} />
-
         <IconButton color="inherit" onClick={toggleColorMode}>
-          {colorMode === "light" ? <LightModeIcon /> : <DarkModeIcon />}
+          {getColorModeIcon(colorMode)}
         </IconButton>
       </Toolbar>
     </AppBar>
