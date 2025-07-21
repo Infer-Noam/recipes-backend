@@ -5,7 +5,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import React from "react";
-import { drawerListItems } from "../drawerList/drawerListItem/drawerListItems.const";
+import { drawerListItems } from "./drawerListItem/drawerListItems.const";
 import Styles from "./drawerList.style";
 
 type DrawerListProps = {

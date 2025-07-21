@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, type FC } from "react";
 import {
   Card,
   CardHeader,
@@ -24,21 +24,21 @@ type RecipeProps = {
   chefAvatarSrc: string;
 };
 
-const formatIngredients = (ingredients: RecipeIngredientModel[]) =>
-  ingredients.map((ri, index) => (
-    <Typography variant="body2" key={index}>
-      {`${ri.amount} ${ri.measurementUnit} of ${ri.ingredient.name}`}
-    </Typography>
-  ));
-
-export const Recipe: React.FC<RecipeProps> = ({
+export const Recipe: FC<RecipeProps> = ({
   recipe: { uuid, name, imageUrl, chef, description, createDate, ingredients },
   deleteRecipe,
   chefAvatarSrc,
 }) => {
+  const formatIngredients = (ingredients: RecipeIngredientModel[]) =>
+    ingredients.map((ri, index) => (
+      <Typography variant="body2" key={index}>
+        {`${ri.amount} ${ri.measurementUnit} of ${ri.ingredient.name}`}
+      </Typography>
+    ));
+
   const navigate = useNavigate();
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -82,7 +82,6 @@ export const Recipe: React.FC<RecipeProps> = ({
           <Typography variant="body2">
             {new Date(createDate).toDateString()}
           </Typography>
-
           <Tooltip
             sx={Styles.tooltip}
             title={
@@ -99,13 +98,11 @@ export const Recipe: React.FC<RecipeProps> = ({
           </Tooltip>
         </CardActions>
       </Card>
-
       <RecipeMenu
         open={open}
         onClose={handleClose}
         anchorEl={anchorEl}
         onDelete={deleteRecipe}
-        onEdit={() => navigate(`edit/${uuid}`)}
         onView={() => navigate(`recipe/${uuid}`)}
       />
     </>
