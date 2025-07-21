@@ -14,7 +14,6 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import LocalGroceryStoreIcon from "@mui/icons-material/LocalGroceryStore";
 import Styles from "./recipe.style";
 import { type Recipe as RecipeModel } from "../../../../shared/types/recipe.type";
-import { type RecipeIngredient as RecipeIngredientModel } from "../../../../shared/types/recipeIngredient.type";
 import { useNavigate } from "react-router-dom";
 import { RecipeMenu } from "./recipeMenu/recipeMenu";
 
@@ -29,21 +28,14 @@ export const Recipe: FC<RecipeProps> = ({
   deleteRecipe,
   chefAvatarSrc,
 }) => {
-  const formatIngredients = (ingredients: RecipeIngredientModel[]) =>
-    ingredients.map((ri, index) => (
-      <Typography variant="body2" key={index}>
-        {`${ri.amount} ${ri.measurementUnit} of ${ri.ingredient.name}`}
-      </Typography>
-    ));
-
   const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const open = Boolean(anchorEl);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -87,7 +79,11 @@ export const Recipe: FC<RecipeProps> = ({
             title={
               <span>
                 <Typography variant="subtitle1">Ingredients</Typography>
-                {formatIngredients(ingredients)}
+                {ingredients.map((ri, index) => (
+                  <Typography variant="body2" key={index}>
+                    {`${ri.amount} ${ri.measurementUnit} of ${ri.ingredient.name}`}
+                  </Typography>
+                ))}
               </span>
             }
             arrow
@@ -99,7 +95,7 @@ export const Recipe: FC<RecipeProps> = ({
         </CardActions>
       </Card>
       <RecipeMenu
-        open={open}
+        open={anchorEl !== null}
         onClose={handleClose}
         anchorEl={anchorEl}
         onDelete={deleteRecipe}

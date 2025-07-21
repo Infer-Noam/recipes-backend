@@ -1,4 +1,4 @@
-import { Recipe } from "../../components/recipe/Recipe";
+import { Recipe } from "../../components/recipe/recipe";
 import { Box, Grid } from "@mui/material";
 import { useGetRecipes } from "../../hooks/api/useGetRecipes.api";
 import api from "../../api";
@@ -6,6 +6,7 @@ import { type DeleteRecipeReq } from "../../../../shared/http-types/recipe/delet
 import { useQueryClient } from "@tanstack/react-query";
 import Styles from "./homePage.style";
 import { USE_GET_RECIPES_KEY } from "../../hooks/api/useGetRecipes.api";
+import { chefSrcArray } from "../../consts/chefSrcArray.const";
 
 const HomePage = () => {
   const { data: recipes } = useGetRecipes();
@@ -17,13 +18,7 @@ const HomePage = () => {
     queryClient.invalidateQueries({ queryKey: [USE_GET_RECIPES_KEY] });
   };
 
-  const chefSrcArray = [227920, 240413, 227924, 44252, 33158, 218334].map(
-    (n) => {
-      return `https://www.svgrepo.com/show/${n}/chef.svg`;
-    }
-  );
-
-  const chefSrc = () =>
+  const getRandomChefSrc = () =>
     chefSrcArray[Math.floor(Math.random() * chefSrcArray.length)];
 
   if (recipes) {
@@ -42,7 +37,7 @@ const HomePage = () => {
                 deleteRecipe={() => {
                   deleteRecipe(recipe.uuid);
                 }}
-                chefAvatarSrc={chefSrc()}
+                chefAvatarSrc={getRandomChefSrc()}
               />
             </Grid>
           ))}

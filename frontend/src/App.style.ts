@@ -1,5 +1,6 @@
 import type { SxProps, Theme } from "@mui/material";
 import { drawerWidth } from "./components/sideDrawer/sideDrawer.const";
+import { ColorMode } from "./theme/colorMode.enum";
 
 const rootLayout: SxProps<Theme> = (theme) => ({
   width: "100vw",
@@ -26,34 +27,34 @@ const contentArea: SxProps<Theme> = (theme) => ({
   },
   "&::-webkit-scrollbar-track": {
     backgroundColor:
-      theme.palette.mode === "dark"
+      theme.palette.mode === ColorMode.DARK
         ? theme.palette.grey[800]
         : theme.palette.grey[100],
     borderRadius: "4px",
   },
   "&::-webkit-scrollbar-thumb": {
     backgroundColor:
-      theme.palette.mode === "dark"
+      theme.palette.mode === ColorMode.DARK
         ? theme.palette.grey[600]
         : theme.palette.grey[400],
     borderRadius: "4px",
     "&:hover": {
       backgroundColor:
-        theme.palette.mode === "dark"
+        theme.palette.mode === ColorMode.DARK
           ? theme.palette.grey[500]
           : theme.palette.grey[500],
     },
   },
   "&::-webkit-scrollbar-corner": {
     backgroundColor:
-      theme.palette.mode === "dark"
+      theme.palette.mode === ColorMode.DARK
         ? theme.palette.grey[800]
         : theme.palette.grey[100],
   },
 
   scrollbarWidth: "thin",
   scrollbarColor:
-    theme.palette.mode === "dark"
+    theme.palette.mode === ColorMode.DARK
       ? `${theme.palette.grey[600]} ${theme.palette.grey[800]}`
       : `${theme.palette.grey[400]} ${theme.palette.grey[100]}`,
 });
