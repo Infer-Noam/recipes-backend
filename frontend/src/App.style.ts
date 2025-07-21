@@ -1,5 +1,5 @@
 import type { SxProps, Theme } from "@mui/material";
-import { drawerWidth } from "./components/sideDrawer/sideDrawer.style";
+import { drawerWidth } from "./components/sideDrawer/sideDrawer.const";
 
 const rootLayout: SxProps<Theme> = (theme) => ({
   width: "100vw",

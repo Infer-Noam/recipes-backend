@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useGetRecipeByUuid } from "../../hooks/api/useGetRecipeByUuid.api";
-import { RecipeCard } from "../../components/recipeCard/RecipeCard";
+import { RecipeCard } from "../recipeCard/RecipeCard";
 import { Box, TextField, Autocomplete, Paper } from "@mui/material";
 import { type FC, useState } from "react";
 
