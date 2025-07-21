@@ -1,10 +1,10 @@
-import { Recipe } from "../../components/recipe/recipe";
+import { Recipe } from "../../components/recipe/Recipe";
 import { Box, Grid } from "@mui/material";
 import { useGetRecipes } from "../../hooks/api/useGetRecipes.api";
 import api from "../../api";
 import { type DeleteRecipeReq } from "../../../../shared/http-types/recipe/deleteRecipe.http-type";
 import { useQueryClient } from "@tanstack/react-query";
-import Styles from "./homePage";
+import Styles from "./homePage.style";
 import { USE_GET_RECIPES_KEY } from "../../hooks/api/useGetRecipes.api";
 
 const HomePage = () => {
