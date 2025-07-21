@@ -1,4 +1,4 @@
-import { type SxProps, type Theme, styled } from "@mui/material";
+import { type SxProps, type Theme } from "@mui/material";
 
 export const drawerWidth = "245px";
 
@@ -33,17 +33,18 @@ const permenentDrawerPaper: SxProps<Theme> = {
   borderBottomRightRadius: 8,
 };
 
-export const DrawerHeader = styled("div")(({ theme }) => ({
+const drawerHeader: SxProps<Theme> = (theme) => ({
   display: "flex",
   alignItems: "center",
   padding: theme.spacing(0, 1),
   ...theme.mixins.toolbar,
   justifyContent: "flex-start",
-}));
+});
 
 export default {
   permanentDrawer,
   permenentDrawerPaper,
   temporaryDrawer,
   temporaryDrawerPaper,
+  drawerHeader,
 };
