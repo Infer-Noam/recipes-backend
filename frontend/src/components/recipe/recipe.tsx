@@ -1,4 +1,4 @@
-import * as React from "react";
+import { type FC } from "react";
 import {
   Card,
   CardHeader,
@@ -25,11 +25,11 @@ type ExpandMoreProps = IconButtonProps & {
   expand: boolean;
 };
 
-const ExpandMore: React.FC<ExpandMoreProps> = ({ expand, ...other }) => (
+const ExpandMore: FC<ExpandMoreProps> = ({ expand, ...other }) => (
   <IconButton {...other} sx={Styles.expandMore(expand)} />
 );
 
-export const Recipe: React.FC<RecipeProps> = ({
+export const Recipe: FC<RecipeProps> = ({
   recipe: { name, imageUrl, chef, description, createDate, steps },
 }) => {
   const { open, toggle } = useToggle();

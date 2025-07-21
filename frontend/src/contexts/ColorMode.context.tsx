@@ -1,4 +1,10 @@
-import { createContext, type FC, useState, useMemo } from "react";
+import {
+  createContext,
+  type FC,
+  useState,
+  useMemo,
+  type ReactNode,
+} from "react";
 import { type ColorMode } from "../theme/theme";
 
 export type ColorModeContextType = {
@@ -10,7 +16,7 @@ export const ColorModeContext = createContext<ColorModeContextType>({
   toggleColorMode: () => {},
 });
 
-export const ColorModeProvider: FC<{ children: React.ReactNode }> = ({
+export const ColorModeProvider: FC<{ children: ReactNode }> = ({
   children,
 }) => {
   const [colorMode, setColorMode] = useState<ColorMode>("light");

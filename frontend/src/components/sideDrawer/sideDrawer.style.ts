@@ -1,11 +1,11 @@
 import { type SxProps, type Theme } from "@mui/material";
-
-export const drawerWidth = "245px";
+import { drawerWidth } from "./sideDrawer.const";
 
 const drawer: SxProps = {
   width: drawerWidth,
   flexShrink: 0,
 };
+
 const permanentDrawer: SxProps = {
   ...drawer,
   [`& .MuiDrawer-paper`]: {

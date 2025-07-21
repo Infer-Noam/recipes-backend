@@ -3,7 +3,6 @@ import { Drawer, IconButton, Toolbar, Divider, Box } from "@mui/material";
 import { DrawerList } from "./drawerList/drawerList";
 import Styles from "./sideDrawer.style";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-import { useNavigate } from "react-router-dom";
 
 type SideDrawerProps = {
   mobileDrawerOpen: boolean;
@@ -14,8 +13,6 @@ const SideDrawer: FC<SideDrawerProps> = ({
   mobileDrawerOpen,
   handleMobileDrawerClose,
 }: SideDrawerProps) => {
-  const navigate = useNavigate();
-
   return (
     <>
       <Drawer
@@ -29,14 +26,14 @@ const SideDrawer: FC<SideDrawerProps> = ({
         }}
       >
         <Toolbar />
-        <DrawerList navigate={navigate} />
+        <DrawerList />
       </Drawer>
 
       <Drawer
         sx={Styles.temporaryDrawer}
         variant="temporary"
         open={mobileDrawerOpen}
-        onClose={() => handleMobileDrawerClose()}
+        onClose={handleMobileDrawerClose}
         slotProps={{
           root: {
             keepMounted: true,
@@ -53,12 +50,7 @@ const SideDrawer: FC<SideDrawerProps> = ({
           </IconButton>
         </Box>
         <Divider />
-        <DrawerList
-          navigate={(p) => {
-            navigate(p);
-            handleMobileDrawerClose();
-          }}
-        />
+        <DrawerList handleMobileDrawerClose={handleMobileDrawerClose} />
       </Drawer>
     </>
   );

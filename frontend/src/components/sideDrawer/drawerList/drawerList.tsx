@@ -1,19 +1,26 @@
-import Box from "@mui/material/Box";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import React from "react";
+import {
+  Box,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
+} from "@mui/material";
+import { type FC, useState } from "react";
 import { drawerListItems } from "../drawerList/drawerListItem/drawerListItems.const";
 import Styles from "./drawerList.style";
+import { useNavigate } from "react-router-dom";
 
 type DrawerListProps = {
-  navigate: (path: string) => void;
+  handleMobileDrawerClose?: () => void;
 };
 
-export const DrawerList: React.FC<DrawerListProps> = ({ navigate }) => {
-  const [selectedIndex, setSelectedIndex] = React.useState(0);
+export const DrawerList: FC<DrawerListProps> = ({
+  handleMobileDrawerClose,
+}) => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
+  const navigate = useNavigate();
 
   return (
     <Box sx={Styles.container} role="presentation">
@@ -24,12 +31,13 @@ export const DrawerList: React.FC<DrawerListProps> = ({ navigate }) => {
               sx={Styles.listItem}
               onClick={() => {
                 setSelectedIndex(index);
+                handleMobileDrawerClose?.();
                 navigate(path);
               }}
               selected={index === selectedIndex}
             >
               <ListItemIcon>
-                <ItemIcon></ItemIcon>
+                <ItemIcon />
               </ListItemIcon>
               <ListItemText primary={name} />
             </ListItemButton>

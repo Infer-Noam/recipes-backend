@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 
-const RecipeEditPage = (
+const RecipeEditPage = () => (
   <Box>
     <Typography>Edit</Typography>
   </Box>

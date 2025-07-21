@@ -5,10 +5,10 @@ import { PAGES_ROUTES } from "./router/routes.const";
 import { Box, Toolbar } from "@mui/material";
 import Styles from "./App.style";
 import SideDrawer from "./components/sideDrawer/sideDrawer";
-import AppHeader from "./components/appHeader/appHeader";
+import AppHeader from "./components/appHeader/AppHeader";
 import useToggle from "./hooks/useToggle";
 import { ColorModeContext } from "./contexts/ColorMode.context";
-import React from "react";
+import { useContext } from "react";
 
 const App = () => {
   const {
@@ -17,12 +17,12 @@ const App = () => {
     handleOpen: handleMobileDrawerOpen,
   } = useToggle(false);
 
-  const { colorMode } = React.useContext(ColorModeContext);
+  const { colorMode } = useContext(ColorModeContext);
 
   return (
     <ThemeProvider theme={createAppTheme(colorMode)}>
       <Box sx={Styles.rootLayout}>
-        <AppHeader handleMobileDrawerOpen={handleMobileDrawerOpen}></AppHeader>
+        <AppHeader handleMobileDrawerOpen={handleMobileDrawerOpen} />
 
         <SideDrawer
           mobileDrawerOpen={mobileDrawerOpen}
