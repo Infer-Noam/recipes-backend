@@ -1,7 +1,7 @@
 import { type FC } from "react";
-import { Drawer, IconButton, Toolbar, Divider } from "@mui/material";
+import { Drawer, IconButton, Toolbar, Divider, Box } from "@mui/material";
 import { DrawerList } from "./drawerList/drawerList";
-import Styles, { DrawerHeader } from "./sideDrawer.style";
+import Styles from "./sideDrawer.style";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import { useNavigate } from "react-router-dom";
 
@@ -29,7 +29,7 @@ const SideDrawer: FC<SideDrawerProps> = ({
         }}
       >
         <Toolbar />
-        <DrawerList navigate={(p) => navigate(p)} />
+        <DrawerList navigate={navigate} />
       </Drawer>
 
       <Drawer
@@ -47,11 +47,11 @@ const SideDrawer: FC<SideDrawerProps> = ({
           },
         }}
       >
-        <DrawerHeader>
+        <Box sx={Styles.drawerHeader}>
           <IconButton onClick={handleMobileDrawerClose}>
             <ChevronLeftIcon />
           </IconButton>
-        </DrawerHeader>
+        </Box>
         <Divider />
         <DrawerList
           navigate={(p) => {
