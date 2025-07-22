@@ -1,16 +1,10 @@
 import { useParams } from "react-router-dom";
 import { useGetRecipeByUuid } from "../../hooks/api/useGetRecipeByUuid.api";
+import { useGetIngredients } from "../../hooks/api/useGetIngredients.api";
+import { useGetChefs } from "../../hooks/api/useGetChefs.api";
 import { RecipeCard } from "../../components/recipeCard/RecipeCard";
 import { Box, TextField, Autocomplete, Paper } from "@mui/material";
-import { useState } from "react";
-import Styles from "./recipePage.style";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import { Recipe } from "../../components/recipe/Recipe";
+import { Recipe } from "../../components/recipe/recipe";
 
 const RecipePage = () => {
   const { uuid } = useParams();
@@ -18,8 +12,10 @@ const RecipePage = () => {
   if (!uuid) return null;
 
   const { data: recipe } = useGetRecipeByUuid(uuid);
+  const { data: ingredients } = useGetIngredients();
+  const { data: chefs } = useGetChefs();
 
-  if (recipe) {
+  if (recipe && ingredients && chefs) {
     return (
       <Box>
         {/* <TextField
@@ -44,7 +40,7 @@ const RecipePage = () => {
         <Recipe
           recipe={recipe}
           chefs={[]}
-          ingredients={[]}
+          ingredients={ingredients}
           close={() => {}}
           save={() => {}}
           deleteRecipe={() => {}}
