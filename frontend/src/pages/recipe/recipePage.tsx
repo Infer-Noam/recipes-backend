@@ -4,7 +4,7 @@ import { useGetIngredients } from "../../hooks/api/useGetIngredients.api";
 import { useGetChefs } from "../../hooks/api/useGetChefs.api";
 import { RecipeCard } from "../../components/recipeCard/RecipeCard";
 import { Box, TextField, Autocomplete, Paper } from "@mui/material";
-import { Recipe } from "../../components/recipe/recipe";
+import { Recipe } from "../../components/recipe/Recipe";
 
 const RecipePage = () => {
   const { uuid } = useParams();
@@ -18,28 +18,9 @@ const RecipePage = () => {
   if (recipe && ingredients && chefs) {
     return (
       <Box>
-        {/* <TextField
-          required
-          id="outlined-basic"
-          label="Recipe name"
-          variant="outlined"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-
-        <Autocomplete
-          sx={Styles.chefAutocomplete}
-          value={chefUuid}
-          onChange={(event: any, newValue: string | null) => {
-            setChefUuid(newValue);
-          }}
-          options={chefOptions}
-          renderInput={(params) => <TextField {...params} label="Chef" />}
-        /> */}
-
         <Recipe
           recipe={recipe}
-          chefs={[]}
+          chefs={chefs}
           ingredients={ingredients}
           close={() => {}}
           save={() => {}}

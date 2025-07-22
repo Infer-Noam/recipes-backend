@@ -1,7 +1,7 @@
 import type { RouteProps } from "react-router-dom";
-import HomePage from "../pages/home/HomePage.tsx";
+import HomePage from "../pages/home/homePage.tsx";
 import RecipeCreationPage from "../pages/recipe-creation/RecipeCreation.tsx";
-import RecipePage from "../pages/recipe/RecipePage.tsx";
+import RecipePage from "../pages/recipe/recipePage.tsx";
 import ChefPage from "../pages/chef/ChefPage.tsx";
 
 export const PAGES_ROUTES: RouteProps[] = [
