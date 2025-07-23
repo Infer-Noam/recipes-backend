@@ -1,22 +1,14 @@
-import { Recipe } from "../../components/recipe/recipe";
+import { RecipeCard } from "../../components/recipeCard/RecipeCard";
 import { Box, Grid } from "@mui/material";
 import { useGetRecipes } from "../../hooks/api/useGetRecipes.api";
-import api from "../../api";
-import { type DeleteRecipeReq } from "../../../../shared/http-types/recipe/deleteRecipe.http-type";
-import { useQueryClient } from "@tanstack/react-query";
 import Styles from "./homePage.style";
-import { USE_GET_RECIPES_KEY } from "../../hooks/api/useGetRecipes.api";
+import { useDeleteRecipe } from "../../hooks/api/useDeleteRecipe.api";
 import { chefSrcArray } from "../../consts/chefSrcArray.const";
 
 const HomePage = () => {
   const { data: recipes } = useGetRecipes();
 
-  const queryClient = useQueryClient();
-
-  const deleteRecipe = async (uuid: string) => {
-    await api.delete<DeleteRecipeReq>("/recipe", { data: { uuid } });
-    queryClient.invalidateQueries({ queryKey: [USE_GET_RECIPES_KEY] });
-  };
+  const { mutate: deleteRecipe } = useDeleteRecipe();
 
   const getRandomChefSrc = () =>
     chefSrcArray[Math.floor(Math.random() * chefSrcArray.length)];
@@ -30,17 +22,23 @@ const HomePage = () => {
           rowSpacing={2.5}
           columnSpacing={3.5}
         >
-          {recipes.map((recipe) => (
-            <Grid key={recipe.uuid}>
-              <Recipe
-                recipe={recipe}
-                deleteRecipe={() => {
-                  deleteRecipe(recipe.uuid);
-                }}
-                chefAvatarSrc={getRandomChefSrc()}
-              />
-            </Grid>
-          ))}
+          {recipes
+            .sort(
+              (a, b) =>
+                new Date(a.createDate).getTime() -
+                new Date(b.createDate).getTime()
+            )
+            .map((recipe) => (
+              <Grid key={recipe.uuid}>
+                <RecipeCard
+                  recipe={recipe}
+                  deleteRecipe={() => {
+                    deleteRecipe(recipe.uuid);
+                  }}
+                  chefAvatarSrc={getRandomChefSrc()}
+                />
+              </Grid>
+            ))}
         </Grid>
       </Box>
     );
