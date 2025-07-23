@@ -22,17 +22,23 @@ const HomePage = () => {
           rowSpacing={2.5}
           columnSpacing={3.5}
         >
-          {recipes.map((recipe) => (
-            <Grid key={recipe.uuid}>
-              <RecipeCard
-                recipe={recipe}
-                deleteRecipe={() => {
-                  deleteRecipe(recipe.uuid);
-                }}
-                chefAvatarSrc={getRandomChefSrc()}
-              />
-            </Grid>
-          ))}
+          {recipes
+            .sort(
+              (a, b) =>
+                new Date(a.createDate).getTime() -
+                new Date(b.createDate).getTime()
+            )
+            .map((recipe) => (
+              <Grid key={recipe.uuid}>
+                <RecipeCard
+                  recipe={recipe}
+                  deleteRecipe={() => {
+                    deleteRecipe(recipe.uuid);
+                  }}
+                  chefAvatarSrc={getRandomChefSrc()}
+                />
+              </Grid>
+            ))}
         </Grid>
       </Box>
     );
