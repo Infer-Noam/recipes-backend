@@ -5,7 +5,7 @@ import {
 } from "../../../../shared/types/recipe.type";
 import { type Chef as ChefModel } from "../../../../shared/types/chef.type";
 import { type Ingredient as IngredientModel } from "../../../../shared/types/ingredient.type";
-import { RecipeIngredientsTable } from "./recipeIngredientTable/RecipeIngredientsTable";
+import { RecipeIngredientsTable } from "./recipeIngredientTable/recipeIngredientsTable";
 import {
   Autocomplete,
   Box,
@@ -41,7 +41,15 @@ type RecipeProps = {
 };
 
 export const Recipe: FC<RecipeProps> = ({
-  recipe,
+  recipe: {
+    uuid,
+    name: initialName,
+    chef: initialChef,
+    description: initialDescription,
+    imageUrl: initialImageUrl,
+    steps: initialSteps,
+    ingredients: initialIngredients,
+  },
   chefs,
   ingredients,
   deleteRecipe,
@@ -49,14 +57,13 @@ export const Recipe: FC<RecipeProps> = ({
 }) => {
   const navigate = useNavigate();
 
-  const [name, setName] = useState(recipe.name);
-  const [chef, setChef] = useState(recipe.chef);
-  const [description, setDescription] = useState(recipe.description);
-  const [imageUrl, setImageUrl] = useState(recipe.imageUrl);
-  const [steps, setSteps] = useState(recipe.steps);
-  const [recipeIngredients, setRecipeIngredients] = useState<
-    DraftRecipeIngredient[]
-  >(recipe.ingredients);
+  const [name, setName] = useState(initialName);
+  const [chef, setChef] = useState(initialChef);
+  const [description, setDescription] = useState(initialDescription);
+  const [imageUrl, setImageUrl] = useState(initialImageUrl);
+  const [steps, setSteps] = useState(initialSteps);
+  const [recipeIngredients, setRecipeIngredients] =
+    useState<DraftRecipeIngredient[]>(initialIngredients);
 
   const [errorText, setErrorText] = useState<string | undefined>(undefined);
 
@@ -76,7 +83,7 @@ export const Recipe: FC<RecipeProps> = ({
     );
     if (areIngredientsValid) {
       const recipeDetails: RecipeDetails = {
-        uuid: recipe.uuid,
+        uuid,
         name,
         chef,
         description,
@@ -84,7 +91,7 @@ export const Recipe: FC<RecipeProps> = ({
         steps,
         ingredients: recipeIngredients.map((ri) => ({
           uuid: ri.uuid,
-          recipe: { uuid: recipe.uuid },
+          recipe: { uuid },
           ingredient: { uuid: ri!.ingredient!.uuid! },
           amount: ri!.amount!,
           measurementUnit: ri!.measurementUnit!,
@@ -93,7 +100,7 @@ export const Recipe: FC<RecipeProps> = ({
       const response = await saveRecipe(recipeDetails);
       if (response.recipe) navigate(-1);
       else {
-        setErrorText(response.error?.message ?? "");
+        setErrorText(response.error?.message);
       }
     } else {
       setErrorText("Recipe contain invalid ingredient");

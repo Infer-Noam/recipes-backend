@@ -28,7 +28,7 @@ import { type Ingredient as IngredientModel } from "../../../../../shared/types/
 import { MeasurementUnit } from "../../../../../shared/enums/measurement-unit.enum";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
-import { type DraftRecipeIngredient } from "../recipeIngredientTable/draftRecipeIngredient.type";
+import { type DraftRecipeIngredient } from "./draftRecipeIngredient.type";
 import { v4 as uuidv4 } from "uuid";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
@@ -44,15 +44,15 @@ export const RecipeIngredientsTable: FC<RecipeIngredientsTableProps> = ({
   setRecipeIngredients,
 }) => {
   const setRecipeIngredient = (
-    uuid: string,
-    updatedFields: Partial<RecipeIngredientModel>
+    updatedFields: Partial<RecipeIngredientModel>,
+    uuid?: string
   ) => {
     setRecipeIngredients((prev) =>
       prev.map((ri) => (ri.uuid === uuid ? { ...ri, ...updatedFields } : ri))
     );
   };
 
-  const CustomTableCell = (label: string) => (
+  const CustomTableCell: FC<{ label: string }> = ({ label }) => (
     <TableCell align="center">
       <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
         {label}
@@ -74,9 +74,9 @@ export const RecipeIngredientsTable: FC<RecipeIngredientsTableProps> = ({
             <Table sx={Styles.container} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  {CustomTableCell("Ingredient")}
-                  {CustomTableCell("Amount")}
-                  {CustomTableCell("Measurement unit")}
+                  <CustomTableCell label={"Ingredient"} />
+                  <CustomTableCell label={"Amount"} />
+                  <CustomTableCell label={"Measurement unit"} />
                   <TableCell />
                 </TableRow>
               </TableHead>
@@ -101,9 +101,12 @@ export const RecipeIngredientsTable: FC<RecipeIngredientsTableProps> = ({
 
                             if (ingredientIndex === -1) return;
 
-                            setRecipeIngredient(ri.uuid, {
-                              ingredient: ingredients[ingredientIndex],
-                            });
+                            setRecipeIngredient(
+                              {
+                                ingredient: ingredients[ingredientIndex],
+                              },
+                              ri.uuid
+                            );
                           }}
                           options={ingredients.map((i) => i.name)}
                           renderInput={(params) => <TextField {...params} />}
@@ -117,7 +120,7 @@ export const RecipeIngredientsTable: FC<RecipeIngredientsTableProps> = ({
                         onChange={(e) => {
                           const value = parseInt(e.target.value);
                           if (value >= 0 && value <= 99) {
-                            setRecipeIngredient(ri.uuid, { amount: value });
+                            setRecipeIngredient({ amount: value }, ri.uuid);
                           }
                         }}
                         slotProps={{
@@ -137,9 +140,12 @@ export const RecipeIngredientsTable: FC<RecipeIngredientsTableProps> = ({
                         sx={Styles.measurementUnitSelect}
                         value={ri.measurementUnit}
                         onChange={(e) => {
-                          setRecipeIngredient(ri.uuid, {
-                            measurementUnit: e.target.value,
-                          });
+                          setRecipeIngredient(
+                            {
+                              measurementUnit: e.target.value,
+                            },
+                            ri.uuid
+                          );
                         }}
                       >
                         {Object.values(MeasurementUnit).map((m, index) => (
